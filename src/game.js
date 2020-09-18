@@ -73,7 +73,14 @@ class Game {
   }
 
   dealDeck() {
-
+    for (var i = 0; i < this.cardDeck.length; i++) {
+      if (i % 2 === 0) {
+        this.player1.hand.push(this.cardDeck[i]);
+      } else {
+        this.player2.hand.push(this.cardDeck[i]);
+      }
+    }
+    this.cardDeck = [];
   }
 
   playHand() {
