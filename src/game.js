@@ -1,9 +1,9 @@
 class Game {
-  constructor(kitty) {
-    this.kitty = kitty;
+  constructor() {
+    this.kitty = []
     this.gameCount = 0;
-    this.player1 = new Player(hand, turn, wins);
-    this.player2 = new Player(hand, turn, wins);
+    this.player1 = new Player(true, true);
+    this.player2 = new Player(false, false);
     this.cardDeck = [
       { src: "./assets/blue-01.png", number: 1, color: "blue" },
       { src: "./assets/blue-02.png", number: 2, color: "blue" },
@@ -61,7 +61,15 @@ class Game {
   }
 
   shuffleDeck() {
-
+    var exchangeIndex;
+    var temporaryIndex;
+    for (var i = this.cardDeck.length -1; i > 0; i--) {
+      exchangeIndex = Math.floor(Math.random() * (i + 1));
+      temporaryIndex = this.cardDeck[i];
+      this.cardDeck[i] = this.cardDeck[exchangeIndex];
+      this.cardDeck[exchangeIndex] = temporaryIndex;
+    }
+    return this.cardDeck;
   }
 
   dealDeck() {

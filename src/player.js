@@ -1,8 +1,9 @@
 class Player {
-  constructor(hand, turn, wins) {
-    this.hand = hand;
+  constructor(dealer, turn) {
+    this.dealer = dealer
     this.turn = turn;
-    this.wins = wins;
+    this.hand = [];
+    this.wins = 0;
     this.id = Date.now();
   }
 
