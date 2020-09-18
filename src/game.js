@@ -95,10 +95,9 @@ class Game {
       this.player2.turn = false;
       this.player1.turn = true;
     }
-    console.log(this.kitty);
   }
 
-  slap() {
+  slap(event) {
 
   }
 
