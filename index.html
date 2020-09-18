@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="./styles.css">
     <title>SlapJack</title>
   </head>
-  <body>
-    <h1>SLAPJACK!</h1>
-    <div class="player-one-deck">
-      <img src="" alt="">
-      <h2>0 Wins</h2>
-    </div>
-    <div class="gameboard-deck"></div>
-    <div class="player-two-deck">
-      <img src="" alt="">
-      <h2>0 Wins</h2>
-    </div>
+  <body class="table">
+    <h1 class="game-update">SLAPJACK!</h1>
+    <section class="gameboard">
+      <div class="player-one-deck">
+        <img src="./assets/back.png" alt="Player One's Deck">
+        <h2 class="player-one-wins">0 Wins</h2>
+      </div>
+      <div class="kitty-deck">
+        <img src="./assets/blue-01.png" alt="Current Card">
+      </div>
+      <div class="player-two-deck">
+        <img src="./assets/back.png" alt="Player Two's Deck">
+        <h2 class="player-two-wins">0 Wins</h2>
+      </div>
+    </section>
   </body>
   <script type="text/javascript" src="./src/player.js"></script>
   <script type="text/javascript" src="./src/game.js"></script>
