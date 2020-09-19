@@ -22,8 +22,9 @@ function handlePlayerActions(event) {
 }
 
 function slapHandler(event) {
-  if (currentGame.kitty[0].number === 11) {
-    currentGame.slapTheJack(event);
+  var topCard = currentGame.kitty[0].number
+  if (topCard === 11 || topCard === currentGame.kitty[1].number || topCard === currentGame.kitty[2].number) {
+    currentGame.slapSuccessfully(event);
   }
 }
 

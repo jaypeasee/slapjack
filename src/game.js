@@ -97,7 +97,7 @@ class Game {
     }
   }
 
-  slapTheJack(event) {
+  slapSuccessfully(event) {
     if (event.key === "f") {
       this.player1.hand = this.player1.hand.concat(this.kitty);
       this.kitty = [];
