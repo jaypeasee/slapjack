@@ -17,14 +17,23 @@ function startNewGame() {
 
 function handlePlayerActions(event) {
   if (event.key === "q" || event.key === "p") {
-   currentGame.playHand(event);
-   wipeStatusDisplays();
-  if (currentGame.kitty.length > 0) {
-    displaygameBoard();
-  }
+    turnHandler(event);
  } else if (event.key === "f" || event.key === "j") {
    slapHandler(event);
  }
+}
+
+function turnHandler(event) {
+  if (currentGame.player1.hand.length === 0 || currentGame.player2.hand.length === 0) {
+    currentGame.overrideTurn(event);
+    wipeStatusDisplays();
+  } else {
+    currentGame.playHand(event);
+    wipeStatusDisplays();
+  }
+  if (currentGame.kitty.length > 0) {
+    displaygameBoard();
+  }
 }
 
 function slapHandler(event) {
@@ -35,6 +44,9 @@ function slapHandler(event) {
     currentGame.slapIncorrectly(event);
     displayTurnStatus();
     displayIncorrectSlap(event);
+  }
+  if (currentGame.kitty.length > 0) {
+    displaygameBoard();
   }
 }
 
