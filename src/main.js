@@ -16,7 +16,7 @@ function startNewGame() {
 function handlePlayerActions(event) {
   if (event.key === "q" || event.key === "p") {
    currentGame.playHand(event);
-   wipeDisplays();
+   wipeStatusDisplays();
    displaygameBoard();
  } else if (event.key === "f" || event.key === "j") {
    slapHandler(event);
@@ -25,18 +25,26 @@ function handlePlayerActions(event) {
 
 function slapHandler(event) {
   var topCard = currentGame.kitty[0].number;
-  if ((topCard === 11) || (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) || (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number)) {
+  var result = "";
+  if (topCard === 11) {
+    result = "SLAPJACK!"
     currentGame.slapCorrectly(event);
-    wipeDisplays();
-    displayGameStatus(event);
+    displayCorrectSlap(event, result);
+  } else if (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) {
+    result = "PAIR!";
+    currentGame.slapCorrectly(event);
+    displayCorrectSlap(event, result);
+  } else if (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number) {
+    result = "SANDWICH!";
+    currentGame.slapCorrectly(event);
   } else {
+    result = "BAD SLAP!"
     currentGame.slapIncorrectly(event);
+    displayIncorrectSlap(event, result);
   }
 }
 
-//update gameBoard on slap
-
-function wipeDisplays() {
+function wipeStatusDisplays() {
   gameUpdate.innerText = "";
   gameBoard.innerHTML = "";
 }
@@ -56,10 +64,20 @@ function displayTurnStatus() {
   }
 }
 
-function displayGameStatus(event) {
+function displayCorrectSlap(event, result) {
+  wipeStatusDisplays();
+  gameUpdate.innerText = "";
   if (event.key === "f") {
-    gameUpdate.innerText = "SLAPJACK! Player 1 takes the pile!"
+    gameUpdate.innerText = `${result} Player 1 takes the pile!`
   } else if (event.key === "j") {
-    gameUpdate.innerText = "SLAPJACK! Player 2 takes the pile!"
+    gameUpdate.innerText = `${result} Player 2 takes the pile!`
+  }
+}
+
+function displayIncorrectSlap(event, result) {
+  if (event.key === "f") {
+
+  } else if (event.key === "j") {
+
   }
 }
