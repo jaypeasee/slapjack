@@ -45,9 +45,6 @@ function slapHandler(event) {
     displayTurnStatus();
     displayIncorrectSlap(event);
   }
-  if (currentGame.kitty.length > 0) {
-    displaygameBoard();
-  }
 }
 
 function handleCorrectSlap(event, topCard) {
@@ -71,6 +68,7 @@ function wipeStatusDisplays() {
 
 function displaygameBoard() {
   if (currentGame.kitty.length > 0) {
+    wipeStatusDisplays();
     var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
     gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
     displayTurnStatus();
@@ -105,14 +103,22 @@ function displayCorrectSlap(event, result) {
   } else if (event.key === "j") {
     gameUpdate.innerText = `${result} Player 2 takes the pile!`
   }
+  resetPlayerDecks();
 }
 
 function displayIncorrectSlap(event) {
-  wipeStatusDisplays();
   displaygameBoard();
   if (event.key === "f") {
     gameUpdate.innerText = "BAD SLAP! Player 1 forfeits a card to Player 2!"
   } else if (event.key === "j") {
     gameUpdate.innerText = "BAD SLAP! Player 2 forfeits a card to Player 1!"
   }
+}
+
+function resetPlayerDecks() {
+  var cardBack = `<img src="./assets/back.png" alt="Player Deck">`;
+  playerOneDeck.innerHTML = "";
+  playerTwoDeck.innerHTML = "";
+  playerOneDeck.insertAdjacentHTML('afterbegin', cardBack);
+  playerTwoDeck.insertAdjacentHTML('afterbegin', cardBack);
 }
