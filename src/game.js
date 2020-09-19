@@ -88,12 +88,12 @@ class Game {
   }
 
   playHand(event) {
-    if (event.key === "q" && this.player1.turn) {
+    if (event.key === "q" && this.player1.turn && this.player1.hand.length > 0) {
       this.kitty.unshift(this.player1.hand[0]);
       this.player1.hand.shift();
       this.player1.turn = false;
       this.player2.turn = true;
-    } else if (event.key === "p" && this.player2.turn) {
+    } else if (event.key === "p" && this.player2.turn && this.player2.hand.length > 0) {
       this.kitty.unshift(this.player2.hand[0]);
       this.player2.hand.shift();
       this.player2.turn = false;
