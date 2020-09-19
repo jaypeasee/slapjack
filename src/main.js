@@ -17,8 +17,14 @@ function handlePlayerActions(event) {
    currentGame.playHand(event);
    displayGameBoard();
  } else if (event.key === "f" || event.key === "j") {
-   currentGame.slap(event);
+   slapHandler(event);
  }
+}
+
+function slapHandler(event) {
+  if (currentGame.kitty[0].number === 11) {
+    currentGame.slapTheJack(event);
+  }
 }
 
 function displayGameBoard() {

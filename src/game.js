@@ -89,7 +89,7 @@ class Game {
       this.player1.hand.shift();
       this.player1.turn = false;
       this.player2.turn = true;
-    } else if ( event.key === "p" && this.player2.turn) {
+    } else if (event.key === "p" && this.player2.turn) {
       this.kitty.unshift(this.player2.hand[0]);
       this.player2.hand.shift();
       this.player2.turn = false;
@@ -97,8 +97,14 @@ class Game {
     }
   }
 
-  slap(event) {
-
+  slapTheJack(event) {
+    if (event.key === "f") {
+      this.player1.hand = this.player1.hand.concat(this.kitty);
+      this.kitty = [];
+    } else if (event.key === "j") {
+      this.player2.hand = this.player2.hand.concat(this.kitty);
+      this.kitty = [];
+    }
   }
 
   resetGame() {
