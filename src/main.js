@@ -8,7 +8,7 @@ var currentGame;
 
 function startNewGame() {
   currentGame = new Game();
-  currentGame.shuffleDeck();
+  currentGame.shuffleDeck(); //pass argument
   currentGame.dealDeck();
 }
 
@@ -22,9 +22,15 @@ function handlePlayerActions(event) {
 }
 
 function slapHandler(event) {
-  var topCard = currentGame.kitty[0].number
-  if (topCard === 11 || topCard === currentGame.kitty[1].number || topCard === currentGame.kitty[2].number) {
-    currentGame.slapSuccessfully(event);
+  var topCard = currentGame.kitty[0].number;
+  if (topCard === 11) {
+    currentGame.slapCorrectly(event);
+  } else if (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) {
+    currentGame.slapCorrectly(event);
+  } else if (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number) {
+    currentGame.slapCorrectly(event);
+  } else {
+    currentGame.slapIncorrectly(event);
   }
 }
 

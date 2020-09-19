@@ -60,7 +60,7 @@ class Game {
     ];
   }
 
-  shuffleDeck() {
+  shuffleDeck() { //use params
     var exchangeIndex;
     var temporaryIndex;
     for (var i = this.cardDeck.length -1; i > 0; i--) {
@@ -70,6 +70,7 @@ class Game {
       this.cardDeck[exchangeIndex] = temporaryIndex;
     }
     return this.cardDeck;
+    //if param.length === 52 this.cardDeck = param
   }
 
   dealDeck() {
@@ -97,13 +98,25 @@ class Game {
     }
   }
 
-  slapSuccessfully(event) {
+  slapCorrectly(event) {
     if (event.key === "f") {
       this.player1.hand = this.player1.hand.concat(this.kitty);
       this.kitty = [];
+      //shuffle this.player
     } else if (event.key === "j") {
       this.player2.hand = this.player2.hand.concat(this.kitty);
       this.kitty = [];
+      //shuffle this.player2.hand
+    }
+  }
+
+  slapIncorrectly(event) {
+    if (event.key === "f") {
+      this.player2.hand.push(this.player1.hand[0]);
+      this.player1.hand.shift();
+    } else if (event.key === "j") {
+      this.player1.hand.push(this.player2.hand[0]);
+      this.player2.hand.shift();
     }
   }
 
