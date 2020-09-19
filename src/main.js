@@ -23,24 +23,47 @@ function handlePlayerActions(event) {
  }
 }
 
+// function slapHandler(event) {
+//   var topCard = currentGame.kitty[0].number;
+//   var result = "";
+//   if (topCard === 11) {
+//     result = "SLAPJACK!"
+//     currentGame.slapCorrectly(event);
+//     displayCorrectSlap(event, result);
+//   } else if (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) {
+//     result = "DOUBLE!";
+//     currentGame.slapCorrectly(event);
+//     displayCorrectSlap(event, result);
+//   } else if (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number) {
+//     result = "SANDWICH!";
+//     currentGame.slapCorrectly(event);
+//   } else {
+//     currentGame.slapIncorrectly(event);
+//     displayIncorrectSlap(event);
+//   }
+// }
+
 function slapHandler(event) {
   var topCard = currentGame.kitty[0].number;
-  var result = "";
-  if (topCard === 11) {
-    result = "SLAPJACK!"
-    currentGame.slapCorrectly(event);
-    displayCorrectSlap(event, result);
-  } else if (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) {
-    result = "DOUBLE!";
-    currentGame.slapCorrectly(event);
-    displayCorrectSlap(event, result);
-  } else if (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number) {
-    result = "SANDWICH!";
-    currentGame.slapCorrectly(event);
+  if ((topCard === 11) || (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) || (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number)) {
+    handleCorrectSlap(event, topCard);
   } else {
     currentGame.slapIncorrectly(event);
     displayIncorrectSlap(event);
   }
+}
+
+function handleCorrectSlap(event, topCard) {
+  var result = "";
+  if (topCard === 11) {
+    result = "SLAPJACK!"
+ } else if (topCard === currentGame.kitty[1].number) {
+   result = "DOUBLE!";
+ } else if (topCard === currentGame.kitty[2].number) {
+   result = "SANDWICH!";
+ }
+  currentGame.slapCorrectly(event);
+  displayCorrectSlap(event, result);
 }
 
 function wipeStatusDisplays() {
