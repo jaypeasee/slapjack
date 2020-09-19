@@ -13,7 +13,7 @@ function startNewGame() {
   currentGame.dealDeck();
 }
 
-function handlePlayerActions(event) {
+function handlePlayerActions(event) { //refactor to add survival round conditions.
   if (event.key === "q" || event.key === "p") {
    currentGame.playHand(event);
    wipeStatusDisplays();
@@ -31,6 +31,7 @@ function slapHandler(event) {
     handleCorrectSlap(event, topCard);
   } else {
     currentGame.slapIncorrectly(event);
+    displayTurnStatus();
     displayIncorrectSlap(event);
   }
 }
@@ -45,6 +46,7 @@ function handleCorrectSlap(event, topCard) {
    result = "SANDWICH!";
  }
   currentGame.slapCorrectly(event);
+  displayTurnStatus();
   displayCorrectSlap(event, result);
 }
 
@@ -82,6 +84,7 @@ function displayCorrectSlap(event, result) {
 
 function displayIncorrectSlap(event) {
   wipeStatusDisplays();
+  displaygameBoard()
   if (event.key === "f") {
     gameUpdate.innerText = "BAD SLAP! Player 1 forfeits a card to Player 2!"
   } else if (event.key === "j") {

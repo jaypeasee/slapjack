@@ -98,13 +98,7 @@ class Game {
       this.player2.hand.shift();
       this.player2.turn = false;
       this.player1.turn = true;
-    } else if (this.player1.hand.length === 0 || this.player2.hand.length === 0) {
-      this.playSurvivalHand(event);
     }
-  }
-
-  playSurvivalHand() {
-    
   }
 
   slapCorrectly(event) {
@@ -112,10 +106,14 @@ class Game {
       this.player1.hand = this.player1.hand.concat(this.kitty);
       this.kitty = [];
       this.shuffleDeck(this.player1.hand);
+      this.player2.turn = true;
+      this.player1.turn = false;
     } else if (event.key === "j") {
       this.player2.hand = this.player2.hand.concat(this.kitty);
       this.kitty = [];
       this.shuffleDeck(this.player2.hand);
+      this.player1.turn = true;
+      this.player2.turn = false;
     }
   }
 
@@ -123,9 +121,13 @@ class Game {
     if (event.key === "f") {
       this.player2.hand.push(this.player1.hand[0]);
       this.player1.hand.shift();
+      this.player2.turn = true;
+      this.player1.turn = false;
     } else if (event.key === "j") {
       this.player1.hand.push(this.player2.hand[0]);
       this.player2.hand.shift();
+      this.player1.turn = true;
+      this.player2.turn = false;
     }
   }
 
