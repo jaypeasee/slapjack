@@ -98,7 +98,13 @@ class Game {
       this.player2.hand.shift();
       this.player2.turn = false;
       this.player1.turn = true;
+    } else if (this.player1.hand.length === 0 || this.player2.hand.length === 0) {
+      this.playSurvivalHand(event);
     }
+  }
+
+  playSurvivalHand() {
+    
   }
 
   slapCorrectly(event) {
