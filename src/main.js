@@ -8,7 +8,7 @@ var currentGame;
 
 function startNewGame() {
   currentGame = new Game();
-  currentGame.shuffleDeck(); //pass argument
+  currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealDeck();
 }
 
@@ -33,6 +33,8 @@ function slapHandler(event) {
     currentGame.slapIncorrectly(event);
   }
 }
+
+//update the h1 about the slap!
 
 function displayGameBoard() {
   gameboard.innerHTML = "";
