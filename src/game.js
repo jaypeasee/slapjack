@@ -60,16 +60,20 @@ class Game {
     ];
   }
 
-  shuffleDeck() {
+  shuffleDeck(cards) {
     var exchangeIndex;
     var temporaryIndex;
-    for (var i = this.cardDeck.length -1; i > 0; i--) {
+    for (var i = cards.length -1; i > 0; i--) {
       exchangeIndex = Math.floor(Math.random() * (i + 1));
-      temporaryIndex = this.cardDeck[i];
-      this.cardDeck[i] = this.cardDeck[exchangeIndex];
-      this.cardDeck[exchangeIndex] = temporaryIndex;
+      temporaryIndex = cards[i];
+      cards[i] = cards[exchangeIndex];
+      cards[exchangeIndex] = temporaryIndex;
     }
-    return this.cardDeck;
+    if (cards.length === 52) {
+      this.cardDeck = cards;
+    } else {
+      return cards;
+    }
   }
 
   dealDeck() {
@@ -89,7 +93,7 @@ class Game {
       this.player1.hand.shift();
       this.player1.turn = false;
       this.player2.turn = true;
-    } else if ( event.key === "p" && this.player2.turn) {
+    } else if (event.key === "p" && this.player2.turn) {
       this.kitty.unshift(this.player2.hand[0]);
       this.player2.hand.shift();
       this.player2.turn = false;
@@ -97,8 +101,26 @@ class Game {
     }
   }
 
-  slap(event) {
+  slapCorrectly(event) {
+    if (event.key === "f") {
+      this.player1.hand = this.player1.hand.concat(this.kitty);
+      this.kitty = [];
+      this.shuffleDeck(this.player1.hand);
+    } else if (event.key === "j") {
+      this.player2.hand = this.player2.hand.concat(this.kitty);
+      this.kitty = [];
+      this.shuffleDeck(this.player2.hand);
+    }
+  }
 
+  slapIncorrectly(event) {
+    if (event.key === "f") {
+      this.player2.hand.push(this.player1.hand[0]);
+      this.player1.hand.shift();
+    } else if (event.key === "j") {
+      this.player1.hand.push(this.player2.hand[0]);
+      this.player2.hand.shift();
+    }
   }
 
   resetGame() {

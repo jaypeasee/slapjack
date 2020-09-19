@@ -12,7 +12,7 @@ h1, h2 {
   flex-direction: column;
 }
 
-.game-update {
+.turn-update, .game-update {
   align-self: center;
 }
 
