@@ -16,7 +16,6 @@ function startNewGame() {
 function handlePlayerActions(event) {
   if (event.key === "q" || event.key === "p") {
    currentGame.playHand(event);
-   wipeStatusDisplays();
    displaygameBoard();
  } else if (event.key === "f" || event.key === "j") {
    slapHandler(event);
@@ -52,9 +51,12 @@ function wipeStatusDisplays() {
 }
 
 function displaygameBoard() {
-  var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
-  gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
-  displayTurnStatus();
+  if (currentGame.player1.hand.length > 0 && currentGame.player2.hand.length > 0) {
+    wipeStatusDisplays();
+    var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
+    gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
+    displayTurnStatus();
+  }
 }
 
 function displayTurnStatus() {
