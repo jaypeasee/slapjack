@@ -1,6 +1,8 @@
 var turnUpdate = document.querySelector(".turn-update");
 var gameUpdate = document.querySelector(".game-update");
-var gameBoard = document.querySelector(".kitty-deck")
+var gameBoard = document.querySelector(".kitty-deck");
+var playerOneDeck = document.querySelector(".player-one-deck");
+var playerTwoDeck = document.querySelector(".player-two-deck");
 
 window.addEventListener("load", startNewGame);
 window.addEventListener("keydown", handlePlayerActions);
@@ -13,7 +15,7 @@ function startNewGame() {
   currentGame.dealDeck();
 }
 
-function handlePlayerActions(event) { //refactor to add survival round conditions.
+function handlePlayerActions(event) {
   if (event.key === "q" || event.key === "p") {
    currentGame.playHand(event);
    wipeStatusDisplays();
@@ -56,10 +58,21 @@ function wipeStatusDisplays() {
 }
 
 function displaygameBoard() {
-  if (currentGame.player1.hand.length > 0 && currentGame.player2.hand.length > 0) {
+  if (currentGame.kitty.length > 0) {
     var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
     gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
     displayTurnStatus();
+  }
+  if (currentGame.player1.hand.length < 1 || currentGame.player2.hand.length < 1) {
+    displaySurvivalRound();
+  }
+}
+
+function displaySurvivalRound() {
+  if (currentGame.player1.hand.length === 0) {
+    playerOneDeck.innerHTML = "";
+  } else if (currentGame.player2.hand.length === 0) {
+    playerTwoDeck.innerHTML = "";
   }
 }
 
@@ -84,7 +97,7 @@ function displayCorrectSlap(event, result) {
 
 function displayIncorrectSlap(event) {
   wipeStatusDisplays();
-  displaygameBoard()
+  displaygameBoard();
   if (event.key === "f") {
     gameUpdate.innerText = "BAD SLAP! Player 1 forfeits a card to Player 2!"
   } else if (event.key === "j") {

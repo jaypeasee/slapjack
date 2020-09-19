@@ -99,6 +99,19 @@ class Game {
       this.player2.turn = false;
       this.player1.turn = true;
     }
+    if (this.player1.hand === [] || this.player2.hand.length === []) {
+      this.playSurvivalHand()
+    }
+  }
+
+  playSurvivalHand() {
+    if (this.player1.hand.length === []) {
+      this.player2.turn = true;
+      this.player1.turn = false;
+    } else if (this.player2.hand.length === []){
+      this.player1.turn = true;
+      this.player2.turn = false;
+    }
   }
 
   slapCorrectly(event) {
