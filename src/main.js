@@ -1,5 +1,6 @@
+var turnUpdate = document.querySelector(".turn-update");
 var gameUpdate = document.querySelector(".game-update");
-var gameboard = document.querySelector(".kitty-deck")
+var gameBoard = document.querySelector(".kitty-deck")
 
 window.addEventListener("load", startNewGame);
 window.addEventListener("keydown", handlePlayerActions);
@@ -15,7 +16,8 @@ function startNewGame() {
 function handlePlayerActions(event) {
   if (event.key === "q" || event.key === "p") {
    currentGame.playHand(event);
-   displayGameBoard();
+   wipeDisplays();
+   displaygameBoard();
  } else if (event.key === "f" || event.key === "j") {
    slapHandler(event);
  }
@@ -23,30 +25,31 @@ function handlePlayerActions(event) {
 
 function slapHandler(event) {
   var topCard = currentGame.kitty[0].number;
-  if (topCard === 11) {
+  if ((topCard === 11) || (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) || (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number)) {
     currentGame.slapCorrectly(event);
-  } else if (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) {
-    currentGame.slapCorrectly(event);
-  } else if (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number) {
-    currentGame.slapCorrectly(event);
+    wipeDisplays();
   } else {
     currentGame.slapIncorrectly(event);
   }
 }
 
-//update the h1 about the slap!
+//update gameBoard on slap
 
-function displayGameBoard() {
-  gameboard.innerHTML = "";
+function wipeDisplays() {
+  gameUpdate.innerText = "";
+  gameBoard.innerHTML = "";
+}
+
+function displaygameBoard() {
   var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
-  gameboard.insertAdjacentHTML('afterbegin', lastCardPlayed);
+  gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
   displayStatus();
 }
 
 function displayStatus() {
   if (currentGame.player1.turn) {
-    gameUpdate.innerText = "Player One's Turn!";
+    turnUpdate.innerText = "Player One's Turn!";
   } else {
-    gameUpdate.innerText = "Player Two's Turn!";
+    turnUpdate.innerText = "Player Two's Turn!";
   }
 }
