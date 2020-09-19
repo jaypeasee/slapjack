@@ -28,6 +28,7 @@ function slapHandler(event) {
   if ((topCard === 11) || (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) || (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number)) {
     currentGame.slapCorrectly(event);
     wipeDisplays();
+    displayGameStatus(event);
   } else {
     currentGame.slapIncorrectly(event);
   }
@@ -43,13 +44,22 @@ function wipeDisplays() {
 function displaygameBoard() {
   var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
   gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
-  displayStatus();
+  displayTurnStatus();
 }
 
-function displayStatus() {
+function displayTurnStatus() {
+  gameUpdate.innerText = "";
   if (currentGame.player1.turn) {
     turnUpdate.innerText = "Player One's Turn!";
   } else {
     turnUpdate.innerText = "Player Two's Turn!";
+  }
+}
+
+function displayGameStatus(event) {
+  if (event.key === "f") {
+    gameUpdate.innerText = "SLAPJACK! Player 1 takes the pile!"
+  } else if (event.key === "j") {
+    gameUpdate.innerText = "SLAPJACK! Player 2 takes the pile!"
   }
 }
