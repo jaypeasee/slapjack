@@ -31,16 +31,15 @@ function slapHandler(event) {
     currentGame.slapCorrectly(event);
     displayCorrectSlap(event, result);
   } else if (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) {
-    result = "PAIR!";
+    result = "DOUBLE!";
     currentGame.slapCorrectly(event);
     displayCorrectSlap(event, result);
   } else if (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number) {
     result = "SANDWICH!";
     currentGame.slapCorrectly(event);
   } else {
-    result = "BAD SLAP!"
     currentGame.slapIncorrectly(event);
-    displayIncorrectSlap(event, result);
+    displayIncorrectSlap(event);
   }
 }
 
@@ -74,10 +73,11 @@ function displayCorrectSlap(event, result) {
   }
 }
 
-function displayIncorrectSlap(event, result) {
+function displayIncorrectSlap(event) {
+  wipeStatusDisplays();
   if (event.key === "f") {
-
+    gameUpdate.innerText = "BAD SLAP! Player 1 forfeits a card to Player 2!"
   } else if (event.key === "j") {
-
+    gameUpdate.innerText = "BAD SLAP! Player 2 forfeits a card to Player 1!"
   }
 }
