@@ -69,7 +69,7 @@ class Game {
       cards[i] = cards[exchangeIndex];
       cards[exchangeIndex] = temporaryIndex;
     }
-    if (cards.length === 52) {
+    if (this.cardDeck.length === 52) {
       this.cardDeck = cards;
     } else {
       return cards;
@@ -161,11 +161,11 @@ class Game {
   redealSurvivalRound(event) {
     this.playHand(event);
     if (this.player1.turn) {
-      this.player1.hand = this.kitty;
+      this.player1.hand = this.player1.hand.concat(this.kitty);
       this.kitty = [];
       this.shuffleDeck(this.player1.hand);
     } else if (this.player2.turn) {
-      this.player2.hand = this.kitty;
+      this.player2.hand = this.player2.hand.concat(this.kitty);
       this.kitty = [];
       this.shuffleDeck(this.player2.hand);
     }
