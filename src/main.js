@@ -38,13 +38,21 @@ function turnHandler(event) {
 
 function slapHandler(event) {
   var topCard = currentGame.kitty[0].number;
-  if ((topCard === 11) || (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) || (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number)) {
+  if (currentGame.player1.hand.length === 0 || currentGame.player2.hand.length === 0) {
+    handleSurvivalSlap(event);
+  }
+  else if ((topCard === 11) || (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) || (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number)) {
     handleCorrectSlap(event, topCard);
   } else {
     currentGame.slapIncorrectly(event);
     displayTurnStatus();
     displayIncorrectSlap(event);
   }
+}
+
+function handleSurvivalSlap(event) {
+  var result = "";
+  currentGame.survivalSlap(event);
 }
 
 function handleCorrectSlap(event, topCard) {

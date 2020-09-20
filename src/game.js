@@ -120,6 +120,14 @@ class Game {
     this.playHand(event);
   }
 
+  survivalSlap(event) {
+    if ((this.player1.hand.length === 0 && event.key === "f") || (this.player2.hand.length === 0 && event.key === "j")) {
+      this.slapCorrectly(event);
+    } else {
+      this.gameOverSlap(event);
+    }
+  }
+
   slapCorrectly(event) {
     if (event.key === "f") {
       this.player1.hand = this.player1.hand.concat(this.kitty);
@@ -133,6 +141,14 @@ class Game {
       this.shuffleDeck(this.player2.hand);
       this.player1.turn = true;
       this.player2.turn = false;
+    }
+  }
+
+  gameOverSlap(event) {
+    if (this.player1.hand.length === 0) {
+      this.player2.wins++;
+    } else if (this.player2.hand.length === 0) {
+      this.player1.wins++;
     }
   }
 
