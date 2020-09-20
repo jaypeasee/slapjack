@@ -120,20 +120,6 @@ class Game {
     this.playHand(event);
   }
 
-  // survivalSlapJack(event) {
-  //   if ((this.player1.hand.length === 0 && event.key === "f") || (this.player2.hand.length === 0 && event.key === "j")) {
-  //     this.slapCorrectly(event);
-  //   }
-  // }
-
-  survivalSlap(event) {
-    if ((this.player1.hand.length === 0 && event.key === "f") || (this.player2.hand.length === 0 && event.key === "j")) {
-      this.slapCorrectly(event);
-    } else {
-      this.gameOverSlap(event);
-    }
-  }
-
   slapCorrectly(event) {
     if (event.key === "f") {
       this.player1.hand = this.player1.hand.concat(this.kitty);

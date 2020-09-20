@@ -55,6 +55,9 @@ function handleSurvivalSlap(event, topCard) {
   if ((topCard === 11 && currentGame.player1.hand.length === 0 && event.key === "f") || (topCard === 11 && currentGame.player2.hand.length === 0 && event.key === "j")) {
     handleCorrectSlap(event, topCard);
     resetPlayerDecks();
+  } else if ((topCard === 11 && currentGame.player2.hand.length === 0 && event.key === "f") || (topCard === 11 && currentGame.player1.hand.length === 0 && event.key === "j") || (currentGame.player1.hand.length === 0 && event.key === "f") || (currentGame.player2.hand.length === 0 && event.key === "j")) {
+    currentGame.gameOverSlap();
+    displayGameOver();
   }
 }
 
