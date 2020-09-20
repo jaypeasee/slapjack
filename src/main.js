@@ -70,8 +70,7 @@ function handleSurvivalSlap(event, topCard) {
 }
 
 function displayGameOver() {
-  gameBoard.innerHTML = "";
-  gameUpdate.innerText = "";
+  resetPlayerDecks()
   if (currentGame.player1.hand.length === 0) {
     gameUpdate.innerText = "Player Two Wins!";
   } else if (currentGame.player2.hand.length === 0) {
@@ -145,12 +144,21 @@ function displayIncorrectSlap(event) {
   }
 }
 
-function resetPlayerDecks() {
-  var cardBack = `<img src="./assets/back.png" alt="Player Deck">`;
+function resetPlayerDecks() { //Refactor event delegation here.
+  var player1CardBack =
+  `<div class="player-one-deck">
+    <img src="./assets/back.png" alt="Player One's Deck">
+    <h2 class="player-one-wins">${currentGame.player1.wins} Wins</h2>
+  </div>`;
+  var player2CardBack =
+  `<div class="player-two-deck">
+    <img src="./assets/back.png" alt="Player Two's Deck">
+    <h2 class="player-one-wins">${currentGame.player2.wins} Wins</h2>
+  </div>`;
   playerOneDeck.innerHTML = "";
   playerTwoDeck.innerHTML = "";
-  playerOneDeck.insertAdjacentHTML('afterbegin', cardBack);
-  playerTwoDeck.insertAdjacentHTML('afterbegin', cardBack);
+  playerOneDeck.insertAdjacentHTML('afterbegin', player1CardBack);
+  playerTwoDeck.insertAdjacentHTML('afterbegin', player2CardBack);
 }
 
 function displaySurvivalRedeal() {
