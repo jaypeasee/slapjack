@@ -42,6 +42,7 @@ function turnHandler(event) {
   if (currentGame.kitty.length > 0) {
     displaygameBoard();
   }
+
 }
 
 function slapHandler(event, topCard) {
@@ -73,7 +74,7 @@ function handleSurvivalSlap(event, topCard) {
 }
 
 function displayGameOver() {
-  resetPlayerDecks()
+  resetPlayerDecks();
   if (currentGame.player1.hand.length === 0) {
     gameUpdate.innerText = "Player Two Wins!";
     playerOneDeck.innerHTML = "";
@@ -84,25 +85,13 @@ function displayGameOver() {
   pauseGame();
 }
 
-function pauseGame() {
-  var timeout = setInterval(stopPause, 1000);
-  var counter = 0;
-
-  function stopPause() {
-    //window.disabled = true;
-    counter++;
-    if (counter === 3) {
-      clearInterval(timeout);
-      resetGame();
-    }
+function displayDealerStatus() {
+  gameUpdate.innerText = "";
+  if (currentGame.player1.turn) {
+    turnUpdate.innerText = "Player One Starts!";
+  } else {
+    turnUpdate.innerText = "Player Two Starts!";
   }
-}
-
-function resetGame() {
-  currentGame.collectCards();
-  startNewGame();
-  resetPlayerDecks();
-  wipeStatusDisplays();
 }
 
 function handleCorrectSlap(event, topCard) {
@@ -195,4 +184,25 @@ function displaySurvivalRedeal() {
   } else if (currentGame.player2.turn) {
     gameUpdate.innerText = "REDEAL! Player Two Takes the Pile!";
   }
+}
+
+function pauseGame() {
+  var timeout = setInterval(stopPause, 1000);
+  var counter = 0;
+
+  function stopPause() {
+    counter++;
+    if (counter === 3) {
+      clearInterval(timeout);
+      resetGame();
+    }
+  }
+}
+
+function resetGame() {
+  currentGame.collectCards();
+  startNewGame();
+  resetPlayerDecks();
+  wipeStatusDisplays();
+  displayDealerStatus()
 }
