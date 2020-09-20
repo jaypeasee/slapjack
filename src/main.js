@@ -1,6 +1,8 @@
 var turnUpdate = document.querySelector(".turn-update");
 var gameUpdate = document.querySelector(".game-update");
-var gameBoard = document.querySelector(".kitty-deck")
+var gameBoard = document.querySelector(".kitty-deck");
+var playerOneDeck = document.querySelector(".player-one-deck");
+var playerTwoDeck = document.querySelector(".player-two-deck");
 
 window.addEventListener("load", startNewGame);
 window.addEventListener("keydown", handlePlayerActions);
@@ -14,22 +16,66 @@ function startNewGame() {
 }
 
 function handlePlayerActions(event) {
+
   if (event.key === "q" || event.key === "p") {
-   currentGame.playHand(event);
-   wipeStatusDisplays();
-   displaygameBoard();
+    turnHandler(event);
  } else if (event.key === "f" || event.key === "j") {
    slapHandler(event);
  }
 }
 
-function slapHandler(event) {
+function turnHandler(event) {
+  if ((currentGame.player1.hand.length === 1 && currentGame.player2.hand.length === 0) || (currentGame.player1.hand.length === 0 && currentGame.player2.hand.length === 1)) {
+    currentGame.redealSurvivalRound(event);
+    displaySurvivalRedeal()
+  }
+  else if (currentGame.player1.hand.length === 0 || currentGame.player2.hand.length === 0) {
+    currentGame.overrideTurn(event);
+    wipeStatusDisplays();
+  } else {
+    currentGame.playHand(event);
+    wipeStatusDisplays();
+  }
+  if (currentGame.kitty.length > 0) {
+    displaygameBoard();
+  }
+}
+
+function slapHandler(event, topCard) {
   var topCard = currentGame.kitty[0].number;
-  if ((topCard === 11) || (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) || (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number)) {
+  if (currentGame.player1.hand.length === 0 || currentGame.player2.hand.length === 0) {
+    handleSurvivalSlap(event, topCard);
+  }
+  else if ((topCard === 11) || (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) || (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number)) {
     handleCorrectSlap(event, topCard);
   } else {
     currentGame.slapIncorrectly(event);
+    displayTurnStatus();
     displayIncorrectSlap(event);
+  }
+}
+
+function handleSurvivalSlap(event, topCard) {
+  if ((topCard === 11 && currentGame.player1.hand.length === 0 && event.key === "f") || (topCard === 11 && currentGame.player2.hand.length === 0 && event.key === "j")) {
+    handleCorrectSlap(event, topCard);
+    resetPlayerDecks();
+  } else if ((topCard === 11 && currentGame.player2.hand.length === 0 && event.key === "f") || (topCard === 11 && currentGame.player1.hand.length === 0 && event.key === "j") || (currentGame.player1.hand.length === 0 && event.key === "f") || (currentGame.player2.hand.length === 0 && event.key === "j")) {
+    currentGame.gameOverSlap();
+    displayGameOver();
+  } else if ((currentGame.player1.hand.length === 0 && event.key === "j") || (currentGame.player2.hand.length === 0 && event.key === "f")) {
+    currentGame.slapIncorrectly(event);
+    displayIncorrectSlap(event);
+    resetPlayerDecks();
+  }
+}
+
+function displayGameOver() {
+  gameBoard.innerHTML = "";
+  gameUpdate.innerText = "";
+  if (currentGame.player1.hand.length === 0) {
+    gameUpdate.innerText = "Player Two Wins!";
+  } else if (currentGame.player2.hand.length === 0) {
+    gameUpdate.innerText = "Player One Wins!";
   }
 }
 
@@ -43,6 +89,7 @@ function handleCorrectSlap(event, topCard) {
    result = "SANDWICH!";
  }
   currentGame.slapCorrectly(event);
+  displayTurnStatus();
   displayCorrectSlap(event, result);
 }
 
@@ -52,9 +99,21 @@ function wipeStatusDisplays() {
 }
 
 function displaygameBoard() {
-  var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
-  gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
-  displayTurnStatus();
+    wipeStatusDisplays();
+    var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
+    gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
+    displayTurnStatus();
+  if (currentGame.player1.hand.length < 1 || currentGame.player2.hand.length < 1) {
+    displaySurvivalRound();
+  }
+}
+
+function displaySurvivalRound() {
+  if (currentGame.player1.hand.length === 0) {
+    playerOneDeck.innerHTML = "";
+  } else if (currentGame.player2.hand.length === 0) {
+    playerTwoDeck.innerHTML = "";
+  }
 }
 
 function displayTurnStatus() {
@@ -70,17 +129,35 @@ function displayCorrectSlap(event, result) {
   wipeStatusDisplays();
   gameUpdate.innerText = "";
   if (event.key === "f") {
-    gameUpdate.innerText = `${result} Player 1 takes the pile!`
+    gameUpdate.innerText = `${result} Player 1 takes the pile!`;
   } else if (event.key === "j") {
-    gameUpdate.innerText = `${result} Player 2 takes the pile!`
+    gameUpdate.innerText = `${result} Player 2 takes the pile!`;
   }
+  resetPlayerDecks();
 }
 
 function displayIncorrectSlap(event) {
-  wipeStatusDisplays();
+  displaygameBoard();
   if (event.key === "f") {
-    gameUpdate.innerText = "BAD SLAP! Player 1 forfeits a card to Player 2!"
+    gameUpdate.innerText = "BAD SLAP! Player 1 forfeits a card to Player 2!";
   } else if (event.key === "j") {
-    gameUpdate.innerText = "BAD SLAP! Player 2 forfeits a card to Player 1!"
+    gameUpdate.innerText = "BAD SLAP! Player 2 forfeits a card to Player 1!";
+  }
+}
+
+function resetPlayerDecks() {
+  var cardBack = `<img src="./assets/back.png" alt="Player Deck">`;
+  playerOneDeck.innerHTML = "";
+  playerTwoDeck.innerHTML = "";
+  playerOneDeck.insertAdjacentHTML('afterbegin', cardBack);
+  playerTwoDeck.insertAdjacentHTML('afterbegin', cardBack);
+}
+
+function displaySurvivalRedeal() {
+  wipeStatusDisplays();
+  if (currentGame.player1.turn) {
+    gameUpdate.innerText = "REDEAL! Player One Takes the Pile!";
+  } else if (currentGame.player2.turn) {
+    gameUpdate.innerText = "REDEAL! Player Two Takes the Pile!";
   }
 }
