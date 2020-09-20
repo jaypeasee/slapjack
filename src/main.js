@@ -25,7 +25,10 @@ function handlePlayerActions(event) {
 }
 
 function turnHandler(event) {
-  if (currentGame.player1.hand.length === 0 || currentGame.player2.hand.length === 0) {
+  if ((currentGame.player1.hand.length === 1 && currentGame.player2.hand.length === 0) || (currentGame.player1.hand.length === 0 && currentGame.player2.hand.length === 1)) {
+    currentGame.redealSurvivalRound(event);
+  }
+  else if (currentGame.player1.hand.length === 0 || currentGame.player2.hand.length === 0) {
     currentGame.overrideTurn(event);
     wipeStatusDisplays();
   } else {

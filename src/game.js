@@ -158,6 +158,19 @@ class Game {
     }
   }
 
+  redealSurvivalRound(event) {
+    this.playHand(event);
+    if (this.player1.turn) {
+      this.player1.hand = this.kitty;
+      this.kitty = [];
+      this.shuffleDeck(this.player1.hand);
+    } else if (this.player2.turn) {
+      this.player2.hand = this.kitty;
+      this.kitty = [];
+      this.shuffleDeck(this.player2.hand);
+    }
+  }
+
   resetGame() {
 
   }
