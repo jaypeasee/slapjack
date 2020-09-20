@@ -10,11 +10,15 @@ window.addEventListener("keydown", handlePlayerActions);
 var currentGame;
 
 function startNewGame() {
-  currentGame = new Game();
+  if (!currentGame) {
+    currentGame = new Game();
+  }
   if (currentGame.gameCount % 2 === 0) {
     currentGame.player1.turn = true;
+    currentGame.player2.turn = false;
   } else {
     currentGame.player2.turn = true;
+    currentGame.player1.turn = false;
   }
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealDeck();
@@ -101,7 +105,8 @@ function pauseGame() {
 }
 
 function resetGame() {
-  currentGame.returnCardsToPile();
+  currentGame.collectCards();
+  startNewGame();
   resetPlayerDecks();
   wipeStatusDisplays();
 }

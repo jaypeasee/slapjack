@@ -172,7 +172,7 @@ class Game {
     }
   }
 
-  returnCardsToPile() {
+  collectCards() {
     this.cardDeck = this.kitty;
     this.cardDeck = this.cardDeck.concat(this.player1.hand);
     this.cardDeck = this.cardDeck.concat(this.player2.hand);
