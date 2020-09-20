@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.kitty = []
+    this.kitty = [];
     this.gameCount = 0;
     this.player1 = new Player(true, true);
     this.player2 = new Player(false, false);

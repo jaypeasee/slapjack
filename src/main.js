@@ -61,7 +61,7 @@ function handleSurvivalSlap(event, topCard) {
   } else if ((currentGame.player1.hand.length === 0 && event.key === "j") || (currentGame.player2.hand.length === 0 && event.key === "f")) {
     currentGame.slapIncorrectly(event);
     displayIncorrectSlap(event);
-    resetPlayerDecks()
+    resetPlayerDecks();
   }
 }
 
@@ -69,7 +69,7 @@ function displayGameOver() {
   gameBoard.innerHTML = "";
   gameUpdate.innerText = "";
   if (currentGame.player1.hand.length === 0) {
-    gameUpdate.innerText = "Player Two Wins!"
+    gameUpdate.innerText = "Player Two Wins!";
   } else if (currentGame.player2.hand.length === 0) {
     gameUpdate.innerText = "Player One Wins!";
   }
@@ -125,9 +125,9 @@ function displayCorrectSlap(event, result) {
   wipeStatusDisplays();
   gameUpdate.innerText = "";
   if (event.key === "f") {
-    gameUpdate.innerText = `${result} Player 1 takes the pile!`
+    gameUpdate.innerText = `${result} Player 1 takes the pile!`;
   } else if (event.key === "j") {
-    gameUpdate.innerText = `${result} Player 2 takes the pile!`
+    gameUpdate.innerText = `${result} Player 2 takes the pile!`;
   }
   resetPlayerDecks();
 }
@@ -135,9 +135,9 @@ function displayCorrectSlap(event, result) {
 function displayIncorrectSlap(event) {
   displaygameBoard();
   if (event.key === "f") {
-    gameUpdate.innerText = "BAD SLAP! Player 1 forfeits a card to Player 2!"
+    gameUpdate.innerText = "BAD SLAP! Player 1 forfeits a card to Player 2!";
   } else if (event.key === "j") {
-    gameUpdate.innerText = "BAD SLAP! Player 2 forfeits a card to Player 1!"
+    gameUpdate.innerText = "BAD SLAP! Player 2 forfeits a card to Player 1!";
   }
 }
 
