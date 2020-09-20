@@ -10,7 +10,10 @@ window.addEventListener("keydown", handlePlayerActions);
 var currentGame;
 
 function startNewGame() {
-  currentGame = new Game();
+  if (!currentGame) {
+    currentGame = new Game();
+  }
+  currentGame.determineDealer();
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealDeck();
 }
@@ -39,6 +42,7 @@ function turnHandler(event) {
   if (currentGame.kitty.length > 0) {
     displaygameBoard();
   }
+
 }
 
 function slapHandler(event, topCard) {
@@ -70,12 +74,23 @@ function handleSurvivalSlap(event, topCard) {
 }
 
 function displayGameOver() {
-  gameBoard.innerHTML = "";
-  gameUpdate.innerText = "";
+  resetPlayerDecks();
   if (currentGame.player1.hand.length === 0) {
     gameUpdate.innerText = "Player Two Wins!";
+    playerOneDeck.innerHTML = "";
   } else if (currentGame.player2.hand.length === 0) {
     gameUpdate.innerText = "Player One Wins!";
+    playerTwoDeck.innerHTML = "";
+  }
+  pauseGame();
+}
+
+function displayDealerStatus() {
+  gameUpdate.innerText = "";
+  if (currentGame.player1.turn) {
+    turnUpdate.innerText = "Player One Starts!";
+  } else {
+    turnUpdate.innerText = "Player Two Starts!";
   }
 }
 
@@ -146,11 +161,20 @@ function displayIncorrectSlap(event) {
 }
 
 function resetPlayerDecks() {
-  var cardBack = `<img src="./assets/back.png" alt="Player Deck">`;
+  var player1CardBack =
+  `<div class="player-one-deck">
+    <img src="./assets/back.png" alt="Player One's Deck">
+    <h2 class="player-one-wins">${currentGame.player1.wins} Wins</h2>
+  </div>`;
+  var player2CardBack =
+  `<div class="player-two-deck">
+    <img src="./assets/back.png" alt="Player Two's Deck">
+    <h2 class="player-two-wins">${currentGame.player2.wins} Wins</h2>
+  </div>`;
   playerOneDeck.innerHTML = "";
   playerTwoDeck.innerHTML = "";
-  playerOneDeck.insertAdjacentHTML('afterbegin', cardBack);
-  playerTwoDeck.insertAdjacentHTML('afterbegin', cardBack);
+  playerOneDeck.insertAdjacentHTML('afterbegin', player1CardBack);
+  playerTwoDeck.insertAdjacentHTML('afterbegin', player2CardBack);
 }
 
 function displaySurvivalRedeal() {
@@ -160,4 +184,25 @@ function displaySurvivalRedeal() {
   } else if (currentGame.player2.turn) {
     gameUpdate.innerText = "REDEAL! Player Two Takes the Pile!";
   }
+}
+
+function pauseGame() {
+  var timeout = setInterval(stopPause, 1000);
+  var counter = 0;
+
+  function stopPause() {
+    counter++;
+    if (counter === 3) {
+      clearInterval(timeout);
+      resetGame();
+    }
+  }
+}
+
+function resetGame() {
+  currentGame.collectCards();
+  startNewGame();
+  resetPlayerDecks();
+  wipeStatusDisplays();
+  displayDealerStatus()
 }

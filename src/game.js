@@ -1,9 +1,9 @@
 class Game {
-  constructor() {
+  constructor(gameCount) {
     this.kitty = [];
     this.gameCount = 0;
-    this.player1 = new Player(true, true);
-    this.player2 = new Player(false, false);
+    this.player1 = new Player();
+    this.player2 = new Player();
     this.cardDeck = [
       { src: "./assets/blue-01.png", number: 1, color: "blue" },
       { src: "./assets/blue-02.png", number: 2, color: "blue" },
@@ -60,6 +60,16 @@ class Game {
     ];
   }
 
+  determineDealer() {
+    if (currentGame.gameCount % 2 === 0) {
+      currentGame.player1.turn = true;
+      currentGame.player2.turn = false;
+    } else {
+      currentGame.player2.turn = true;
+      currentGame.player1.turn = false;
+    }
+  }
+
   shuffleDeck(cards) {
     var exchangeIndex;
     var temporaryIndex;
@@ -90,12 +100,12 @@ class Game {
   playHand(event) {
     if (event.key === "q" && this.player1.turn) {
       this.kitty.unshift(this.player1.hand[0]);
-      this.player1.hand.shift();
       this.toggleTurns(event);
+      this.player1.hand.shift();
     } else if (event.key === "p" && this.player2.turn) {
       this.kitty.unshift(this.player2.hand[0]);
-      this.player2.hand.shift();
       this.toggleTurns(event);
+      this.player2.hand.shift();
     }
   }
 
@@ -142,6 +152,7 @@ class Game {
     } else if (this.player2.hand.length === 0) {
       this.player1.wins++;
     }
+    this.gameCount++;
   }
 
   slapIncorrectly(event) {
@@ -171,7 +182,12 @@ class Game {
     }
   }
 
-  resetGame() {
-
+  collectCards() {
+    this.cardDeck = this.kitty;
+    this.cardDeck = this.cardDeck.concat(this.player1.hand);
+    this.cardDeck = this.cardDeck.concat(this.player2.hand);
+    this.kitty = [];
+    this.player1.hand = [];
+    this.player2.hand = [];
   }
 }
