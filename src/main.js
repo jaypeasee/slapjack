@@ -73,8 +73,10 @@ function displayGameOver() {
   resetPlayerDecks()
   if (currentGame.player1.hand.length === 0) {
     gameUpdate.innerText = "Player Two Wins!";
+    playerOneDeck.innerHTML = "";
   } else if (currentGame.player2.hand.length === 0) {
     gameUpdate.innerText = "Player One Wins!";
+    playerTwoDeck.innerHTML = "";
   }
 }
 
@@ -153,7 +155,7 @@ function resetPlayerDecks() { //Refactor event delegation here.
   var player2CardBack =
   `<div class="player-two-deck">
     <img src="./assets/back.png" alt="Player Two's Deck">
-    <h2 class="player-one-wins">${currentGame.player2.wins} Wins</h2>
+    <h2 class="player-two-wins">${currentGame.player2.wins} Wins</h2>
   </div>`;
   playerOneDeck.innerHTML = "";
   playerTwoDeck.innerHTML = "";
