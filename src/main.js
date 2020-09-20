@@ -51,8 +51,19 @@ function slapHandler(event) {
 }
 
 function handleSurvivalSlap(event) {
-  var result = "";
   currentGame.survivalSlap(event);
+  if (currentGame.player1.hand.length > 0 && currentGame.player2.hand.length > 0) {
+    resetPlayerDecks();
+    handleCorrectSlap(event, 11);
+  }
+  //if back in the game - invoke function for dom update.
+    //resets the cardbacks
+    //updates the status
+    //clears the middle deck
+  //if game over - update dom and invoke new instance of the game class.
+    //updates the board.
+    //clears the middle.
+    //updates the win title.
 }
 
 function handleCorrectSlap(event, topCard) {
