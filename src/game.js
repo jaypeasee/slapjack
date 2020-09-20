@@ -1,7 +1,7 @@
 class Game {
-  constructor() {
+  constructor(gameCount) {
     this.kitty = [];
-    this.gameCount = 0;
+    this.gameCount = gameCount || 0;
     this.player1 = new Player();
     this.player2 = new Player();
     this.cardDeck = [

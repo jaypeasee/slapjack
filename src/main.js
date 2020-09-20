@@ -10,7 +10,10 @@ window.addEventListener("keydown", handlePlayerActions);
 var currentGame;
 
 function startNewGame() {
-  currentGame = new Game();
+  if (currentGame) {
+    var count = currentGame.gameCount
+  }
+  currentGame = new Game(count);
   if (currentGame.gameCount % 2 === 0) {
     currentGame.player1.turn = true;
   } else {
@@ -83,7 +86,27 @@ function displayGameOver() {
     gameUpdate.innerText = "Player One Wins!";
     playerTwoDeck.innerHTML = "";
   }
+  pauseGame();
+}
 
+function pauseGame() {
+  var timeout = setInterval(stopPause, 1000);
+  var counter = 0;
+
+  function stopPause() {
+    //window.disabled = true;
+    counter++;
+    if (counter === 3) {
+      clearInterval(timeout);
+      resetGame();
+    }
+  }
+}
+
+function resetGame() {
+  resetPlayerDecks();
+  wipeStatusDisplays();
+  startNewGame(currentGame.gameCount)
 }
 
 function handleCorrectSlap(event, topCard) {
@@ -152,7 +175,7 @@ function displayIncorrectSlap(event) {
   }
 }
 
-function resetPlayerDecks() { //Refactor event delegation here.
+function resetPlayerDecks() {
   var player1CardBack =
   `<div class="player-one-deck">
     <img src="./assets/back.png" alt="Player One's Deck">
