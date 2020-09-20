@@ -2,8 +2,8 @@ class Game {
   constructor() {
     this.kitty = [];
     this.gameCount = 0;
-    this.player1 = new Player(true, true);
-    this.player2 = new Player(false, false);
+    this.player1 = new Player(true);
+    this.player2 = new Player(false);
     this.cardDeck = [
       { src: "./assets/blue-01.png", number: 1, color: "blue" },
       { src: "./assets/blue-02.png", number: 2, color: "blue" },
@@ -142,6 +142,7 @@ class Game {
     } else if (this.player2.hand.length === 0) {
       this.player1.wins++;
     }
+    this.gameCount++;
   }
 
   slapIncorrectly(event) {

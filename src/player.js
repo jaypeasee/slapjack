@@ -1,6 +1,5 @@
 class Player {
-  constructor(dealer, turn) {
-    this.dealer = dealer;
+  constructor(turn) {
     this.turn = turn;
     this.hand = [];
     this.wins = 0;

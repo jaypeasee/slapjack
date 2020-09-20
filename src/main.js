@@ -78,6 +78,7 @@ function displayGameOver() {
     gameUpdate.innerText = "Player One Wins!";
     playerTwoDeck.innerHTML = "";
   }
+  
 }
 
 function handleCorrectSlap(event, topCard) {
