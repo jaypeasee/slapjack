@@ -120,6 +120,12 @@ class Game {
     this.playHand(event);
   }
 
+  // survivalSlapJack(event) {
+  //   if ((this.player1.hand.length === 0 && event.key === "f") || (this.player2.hand.length === 0 && event.key === "j")) {
+  //     this.slapCorrectly(event);
+  //   }
+  // }
+
   survivalSlap(event) {
     if ((this.player1.hand.length === 0 && event.key === "f") || (this.player2.hand.length === 0 && event.key === "j")) {
       this.slapCorrectly(event);
@@ -144,7 +150,7 @@ class Game {
     }
   }
 
-  gameOverSlap(event) {
+  gameOverSlap() {
     if (this.player1.hand.length === 0) {
       this.player2.wins++;
     } else if (this.player2.hand.length === 0) {

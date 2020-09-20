@@ -16,6 +16,7 @@ function startNewGame() {
 }
 
 function handlePlayerActions(event) {
+
   if (event.key === "q" || event.key === "p") {
     turnHandler(event);
  } else if (event.key === "f" || event.key === "j") {
@@ -36,10 +37,10 @@ function turnHandler(event) {
   }
 }
 
-function slapHandler(event) {
+function slapHandler(event, topCard) {
   var topCard = currentGame.kitty[0].number;
   if (currentGame.player1.hand.length === 0 || currentGame.player2.hand.length === 0) {
-    handleSurvivalSlap(event);
+    handleSurvivalSlap(event, topCard);
   }
   else if ((topCard === 11) || (currentGame.kitty.length > 1 && topCard === currentGame.kitty[1].number) || (currentGame.kitty.length > 2 && topCard === currentGame.kitty[2].number)) {
     handleCorrectSlap(event, topCard);
@@ -50,17 +51,10 @@ function slapHandler(event) {
   }
 }
 
-function handleSurvivalSlap(event) {
-  currentGame.survivalSlap(event);
-  if (currentGame.player1.hand.length > 0 && currentGame.player2.hand.length > 0) {
+function handleSurvivalSlap(event, topCard) {
+  if ((topCard === 11 && currentGame.player1.hand.length === 0 && event.key === "f") || (topCard === 11 && currentGame.player2.hand.length === 0 && event.key === "j")) {
+    handleCorrectSlap(event, topCard);
     resetPlayerDecks();
-    handleCorrectSlap(event, 11);
-  } else {
-    displayGameOver();
-    //update dom and invoke new instance of the game class.
-      //updates the board.
-      //clears the middle.
-      //updates the win title.
   }
 }
 
@@ -68,7 +62,7 @@ function displayGameOver() {
   gameBoard.innerHTML = "";
   gameUpdate.innerText = "";
   if (currentGame.player1.hand.length === 0) {
-    gameUpdate.innerText = "Player Two Wins!";
+    gameUpdate.innerText = "Player Two Wins!"
   } else if (currentGame.player2.hand.length === 0) {
     gameUpdate.innerText = "Player One Wins!";
   }
@@ -94,12 +88,10 @@ function wipeStatusDisplays() {
 }
 
 function displaygameBoard() {
-  if (currentGame.kitty.length > 0) {
     wipeStatusDisplays();
     var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
     gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
     displayTurnStatus();
-  }
   if (currentGame.player1.hand.length < 1 || currentGame.player2.hand.length < 1) {
     displaySurvivalRound();
   }
