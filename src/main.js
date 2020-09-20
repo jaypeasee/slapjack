@@ -27,6 +27,7 @@ function handlePlayerActions(event) {
 function turnHandler(event) {
   if ((currentGame.player1.hand.length === 1 && currentGame.player2.hand.length === 0) || (currentGame.player1.hand.length === 0 && currentGame.player2.hand.length === 1)) {
     currentGame.redealSurvivalRound(event);
+    displaySurvivalRedeal()
   }
   else if (currentGame.player1.hand.length === 0 || currentGame.player2.hand.length === 0) {
     currentGame.overrideTurn(event);
@@ -150,4 +151,13 @@ function resetPlayerDecks() {
   playerTwoDeck.innerHTML = "";
   playerOneDeck.insertAdjacentHTML('afterbegin', cardBack);
   playerTwoDeck.insertAdjacentHTML('afterbegin', cardBack);
+}
+
+function displaySurvivalRedeal() {
+  wipeStatusDisplays();
+  if (currentGame.player1.turn) {
+    gameUpdate.innerText = "REDEAL! Player One Takes the Pile!";
+  } else if (currentGame.player2.turn) {
+    gameUpdate.innerText = "REDEAL! Player Two Takes the Pile!";
+  }
 }
