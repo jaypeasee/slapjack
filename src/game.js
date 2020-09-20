@@ -1,7 +1,7 @@
 class Game {
   constructor(gameCount) {
     this.kitty = [];
-    this.gameCount = gameCount || 0;
+    this.gameCount = 0;
     this.player1 = new Player();
     this.player2 = new Player();
     this.cardDeck = [
@@ -172,7 +172,12 @@ class Game {
     }
   }
 
-  resetGame() {
-
+  returnCardsToPile() {
+    this.cardDeck = this.kitty;
+    this.cardDeck = this.cardDeck.concat(this.player1.hand);
+    this.cardDeck = this.cardDeck.concat(this.player2.hand);
+    this.kitty = [];
+    this.player1.hand = [];
+    this.player2.hand = [];
   }
 }

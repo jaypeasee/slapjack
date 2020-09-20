@@ -10,10 +10,7 @@ window.addEventListener("keydown", handlePlayerActions);
 var currentGame;
 
 function startNewGame() {
-  if (currentGame) {
-    var count = currentGame.gameCount
-  }
-  currentGame = new Game(count);
+  currentGame = new Game();
   if (currentGame.gameCount % 2 === 0) {
     currentGame.player1.turn = true;
   } else {
@@ -104,9 +101,9 @@ function pauseGame() {
 }
 
 function resetGame() {
+  currentGame.returnCardsToPile();
   resetPlayerDecks();
   wipeStatusDisplays();
-  startNewGame(currentGame.gameCount)
 }
 
 function handleCorrectSlap(event, topCard) {
