@@ -11,6 +11,11 @@ var currentGame;
 
 function startNewGame() {
   currentGame = new Game();
+  if (currentGame.gameCount % 2 === 0) {
+    currentGame.player1.turn = true;
+  } else {
+    currentGame.player2.turn = true;
+  }
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealDeck();
 }
@@ -78,7 +83,7 @@ function displayGameOver() {
     gameUpdate.innerText = "Player One Wins!";
     playerTwoDeck.innerHTML = "";
   }
-  
+
 }
 
 function handleCorrectSlap(event, topCard) {

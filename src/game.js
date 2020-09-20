@@ -2,8 +2,8 @@ class Game {
   constructor() {
     this.kitty = [];
     this.gameCount = 0;
-    this.player1 = new Player(true);
-    this.player2 = new Player(false);
+    this.player1 = new Player();
+    this.player2 = new Player();
     this.cardDeck = [
       { src: "./assets/blue-01.png", number: 1, color: "blue" },
       { src: "./assets/blue-02.png", number: 2, color: "blue" },
