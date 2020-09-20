@@ -55,15 +55,23 @@ function handleSurvivalSlap(event) {
   if (currentGame.player1.hand.length > 0 && currentGame.player2.hand.length > 0) {
     resetPlayerDecks();
     handleCorrectSlap(event, 11);
+  } else {
+    displayGameOver();
+    //update dom and invoke new instance of the game class.
+      //updates the board.
+      //clears the middle.
+      //updates the win title.
   }
-  //if back in the game - invoke function for dom update.
-    //resets the cardbacks
-    //updates the status
-    //clears the middle deck
-  //if game over - update dom and invoke new instance of the game class.
-    //updates the board.
-    //clears the middle.
-    //updates the win title.
+}
+
+function displayGameOver() {
+  gameBoard.innerHTML = "";
+  gameUpdate.innerText = "";
+  if (currentGame.player1.hand.length === 0) {
+    gameUpdate.innerText = "Player Two Wins!";
+  } else if (currentGame.player2.hand.length === 0) {
+    gameUpdate.innerText = "Player One Wins!";
+  }
 }
 
 function handleCorrectSlap(event, topCard) {
