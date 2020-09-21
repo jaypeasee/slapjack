@@ -1,7 +1,10 @@
+//Displaying Survival
+//Restarting the game
+
+
 var turnUpdate = document.querySelector(".turn-update");
 var gameUpdate = document.querySelector(".game-update");
 var gameBoard = document.querySelector(".kitty-deck");
-var cardPile = document.querySelectorAll(".card-pile");
 var playerOneDeck = document.querySelector(".player-one-deck");
 var playerTwoDeck = document.querySelector(".player-two-deck");
 
@@ -110,10 +113,11 @@ function wipeStatusDisplays() {
 }
 
 function displaygameBoard() {
-    wipeStatusDisplays();
-    var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
-    gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
-    displayTurnStatus();
+  wipeStatusDisplays()
+
+  var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
+  gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
+  displayTurnStatus();
   if (currentGame.player1.hand.length < 1 || currentGame.player2.hand.length < 1) {
     displaySurvivalRound();
   }
@@ -121,9 +125,9 @@ function displaygameBoard() {
 
 function displaySurvivalRound() {
   if (currentGame.player1.hand.length === 0) {
-    playerOneDeck.innerHTML = "";
+    playerOneDeck.children[0].classList.add('hidden'); //refactor
   } else if (currentGame.player2.hand.length === 0) {
-    playerTwoDeck.innerHTML = "";
+    playerTwoDeck.children[0].classList.add('hidden');
   }
 }
 
@@ -158,10 +162,10 @@ function displayIncorrectSlap(event) {
 
 function resetPlayerDecks() {
   var playerPile = `<img src="./assets/back.png" alt="Player Deck" class="card-pile">`
-  playerOneDeck.children[1].innerHTML = playerPile;
-  playerOneDeck.children[2].innertext = `${currentGame.player1.wins} Wins`
-  playerTwoDeck.children[1].innerHTML = playerPile;
-  playerTwoDeck.children[2].innerText = `${currentGame.player2.wins} Wins`
+  playerOneDeck.children[0] = playerPile;
+  playerOneDeck.children[2].innertext = `${currentGame.player1.wins} Wins`;
+  playerTwoDeck.children[0] = playerPile;
+  playerTwoDeck.children[2].innerText = `${currentGame.player2.wins} Wins`;
 }
 
 function displaySurvivalRedeal() {
@@ -177,10 +181,10 @@ function displayGameOver() {
   resetPlayerDecks();
   if (currentGame.player1.hand.length === 0) {
     gameUpdate.innerText = "Player Two Wins!";
-    playerOneDeck.innerHTML = "";
+    playerOneDeck = "";
   } else if (currentGame.player2.hand.length === 0) {
     gameUpdate.innerText = "Player One Wins!";
-    playerTwoDeck.innerHTML = "";
+    playerTwoDeck = "";
   }
   pauseGame();
 }

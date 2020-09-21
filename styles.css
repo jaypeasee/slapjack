@@ -46,3 +46,7 @@ img {
   color: #2B2733;
   font-family: 'Shadows Into Light', cursive;
 }
+
+.hidden {
+  visibility: hidden;
+}
