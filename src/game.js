@@ -146,17 +146,6 @@ class Game {
     }
   }
 
-  gameOverSlap() {
-    if (this.player1.hand.length === 0) {
-      this.player2.wins++;
-      this.player2.saveWinsToStorage();
-    } else if (this.player2.hand.length === 0) {
-      this.player1.wins++;
-      this.player1.saveWinsToStorage();
-    }
-    this.gameCount++;
-  }
-
   slapIncorrectly(event) {
     if (event.key === "f") {
       this.player2.hand.push(this.player1.hand[0]);
@@ -174,14 +163,25 @@ class Game {
   redealSurvivalRound(event) {
     this.playHand(event);
     if (this.player1.turn) {
-      this.player1.hand = this.player1.hand.concat(this.kitty);
+      this.player1.hand = this.kitty;
       this.kitty = [];
       this.shuffleDeck(this.player1.hand);
     } else if (this.player2.turn) {
-      this.player2.hand = this.player2.hand.concat(this.kitty);
+      this.player2.hand = this.kitty;
       this.kitty = [];
       this.shuffleDeck(this.player2.hand);
     }
+  }
+
+  gameOverSlap() {
+    if (this.player1.hand.length === 0) {
+      this.player2.wins++;
+      this.player2.saveWinsToStorage();
+    } else if (this.player2.hand.length === 0) {
+      this.player1.wins++;
+      this.player1.saveWinsToStorage();
+    }
+    this.gameCount++;
   }
 
   collectCards() {
