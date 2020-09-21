@@ -1,5 +1,7 @@
 img {
-  width: 50%;
+  max-width: 206px;
+  border-radius: 20px;
+  box-shadow: 8px 8px 6px -6px #26222D;
 }
 
 h1, h2 {
@@ -18,7 +20,7 @@ h1, h2 {
 
 .gameboard {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .player-one-deck, .kitty-deck, .player-two-deck {
