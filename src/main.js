@@ -120,9 +120,9 @@ function displaygameBoard() {
 
 function displaySurvivalRound() {
   if (currentGame.player1.hand.length === 0) {
-    playerOneDeck.innerHTML = "";
+    playerOneDeck.children[0].classList.add('hidden');
   } else if (currentGame.player2.hand.length === 0) {
-    playerTwoDeck.innerHTML = "";
+    playerTwoDeck.children[0].classList.add('hidden')
   }
 }
 
@@ -175,10 +175,10 @@ function displayGameOver() {
   resetPlayerDecks();
   if (currentGame.player1.hand.length === 0) {
     gameUpdate.innerText = "Player Two Wins!";
-    playerOneDeck.innerHTML = "";
+    playerOneDeck.children[0].classList.add('hidden');
   } else if (currentGame.player2.hand.length === 0) {
     gameUpdate.innerText = "Player One Wins!";
-    playerTwoDeck.innerHTML = "";
+    playerTwoDeck.children[0].classList.add('hidden');
   }
   pauseGame();
 }

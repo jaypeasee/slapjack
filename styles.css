@@ -47,6 +47,10 @@ img {
   font-family: 'Shadows Into Light', cursive;
 }
 
+.control-instructions {
+  margin-top: 0px;
+}
+
 .hidden {
   visibility: hidden;
 }
