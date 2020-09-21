@@ -1,6 +1,7 @@
 var turnUpdate = document.querySelector(".turn-update");
 var gameUpdate = document.querySelector(".game-update");
 var gameBoard = document.querySelector(".kitty-deck");
+var cardPile = document.querySelectorAll(".card-pile");
 var playerOneDeck = document.querySelector(".player-one-deck");
 var playerTwoDeck = document.querySelector(".player-two-deck");
 
@@ -156,30 +157,11 @@ function displayIncorrectSlap(event) {
 }
 
 function resetPlayerDecks() {
-  var player1CardBack =
-  `<div class="player-one-deck">
-    <img src="./assets/back.png" alt="Player One's Deck">
-    <h2 class="player-one-wins">${currentGame.player1.wins} Wins</h2>
-    <div class="control-card">
-      <h3>YOUR CONTROLS:</h3>
-      <h3>Press the [ q ] key to deal a card.</h4>
-      <h3>Press the [ f ] key to slap!</h4>
-    </div>
-  </div>`;
-  var player2CardBack =
-  `<div class="player-two-deck">
-    <img src="./assets/back.png" alt="Player Two's Deck">
-    <h2 class="player-two-wins">${currentGame.player2.wins} Wins</h2>
-    <div class="control-card">
-      <h3>YOUR CONTROLS:</h3>
-      <h3>Press the [ p ] key to deal a card.</h4>
-      <h3>Press the [ j ] key to slap!</h4>
-    </div>
-  </div>`;
-  playerOneDeck.innerHTML = "";
-  playerTwoDeck.innerHTML = "";
-  playerOneDeck.insertAdjacentHTML('afterbegin', player1CardBack);
-  playerTwoDeck.insertAdjacentHTML('afterbegin', player2CardBack);
+  var playerPile = `<img src="./assets/back.png" alt="Player Deck" class="card-pile">`
+  playerOneDeck.children[1].innerHTML = playerPile;
+  playerOneDeck.children[2].innertext = `${currentGame.player1.wins} Wins`
+  playerTwoDeck.children[1].innerHTML = playerPile;
+  playerTwoDeck.children[2].innerText = `${currentGame.player2.wins} Wins`
 }
 
 function displaySurvivalRedeal() {
