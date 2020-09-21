@@ -160,11 +160,21 @@ function resetPlayerDecks() {
   `<div class="player-one-deck">
     <img src="./assets/back.png" alt="Player One's Deck">
     <h2 class="player-one-wins">${currentGame.player1.wins} Wins</h2>
+    <div class="control-card">
+      <h3>YOUR CONTROLS:</h3>
+      <h3>Press the [ q ] key to deal a card.</h4>
+      <h3>Press the [ f ] key to slap!</h4>
+    </div>
   </div>`;
   var player2CardBack =
   `<div class="player-two-deck">
     <img src="./assets/back.png" alt="Player Two's Deck">
     <h2 class="player-two-wins">${currentGame.player2.wins} Wins</h2>
+    <div class="control-card">
+      <h3>YOUR CONTROLS:</h3>
+      <h3>Press the [ p ] key to deal a card.</h4>
+      <h3>Press the [ j ] key to slap!</h4>
+    </div>
   </div>`;
   playerOneDeck.innerHTML = "";
   playerTwoDeck.innerHTML = "";
