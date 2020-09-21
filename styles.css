@@ -5,7 +5,8 @@ img {
 }
 
 h1, h2 {
-  color: #BD9176;
+  font-family: 'Bubblegum Sans', cursive;
+  color: paleturquoise;
 }
 
 .table {
