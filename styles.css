@@ -5,7 +5,7 @@ img {
 }
 
 h1 {
-  margin: 10px;
+  margin: 0
 }
 
 .table {
@@ -19,6 +19,7 @@ h1 {
 .title {
   align-self: center;
   font-size: 3em;
+  margin-bottom: 0
 }
 
 .turn-update, .game-update {
@@ -49,6 +50,10 @@ h1 {
 .player-one-wins, .player-two-wins {
   align-self: center;
   margin: 0px;
+}
+
+.player-name {
+  margin-bottom: 5px;
 }
 
 .control-card {

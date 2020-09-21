@@ -6,13 +6,13 @@
     <title>SlapJack</title>
   </head>
   <body class="table">
-    <h1 class="title">SLAPJACK!</h1>
+    <h1 class="title">SLAPJACK</h1>
     <h1 class="turn-update">Player One Starts!</h1>
     <h2 class="game-update"></h2>
     <section class="gameboard">
       <div class="player-one-deck">
         <img src="./assets/back.png" alt="Player One's Deck">
-        <h2>Player 1</h2>
+        <h2 class="player-name">Player 1</h2>
         <h2 class="player-one-wins">0 Wins</h2>
         <div class="control-card">
           <h3>YOUR CONTROLS:</h3>
@@ -23,7 +23,7 @@
       <div class="kitty-deck"></div>
       <div class="player-two-deck">
         <img src="./assets/back.png" alt="Player Two's Deck">
-        <h2>Player 2</h2>
+        <h2 class="player-name">Player 2</h2>
         <h2 class="player-two-wins">0 Wins</h2>
         <div class="control-card">
           <h3>YOUR CONTROLS:</h3>
@@ -40,11 +40,11 @@
         <li>The players take turns dealing cards to the central pile</li>
         <li>Players can "slap" the central pile to claim it and shuffle those cards into their existing hand</li>
         <li>There are 3 valid slaps in SlapJack:</li>
-          <ul>
+          <ol>
             <li>When a Jack is the top card.</li>
             <li>On doubles - two cards of the same number in a row.</li>
             <li>On sandwiches - two matching cards with a random card between them</li>
-          </ul>
+          </ol>
         <li>If a player slaps the central pile for any other reason, they forfeit the top card in their hand to the opposing player. That card is added to the bottom of the other player's hand.</li>
         <li>When a player runs out of cards the game continues, but with new rules:</li>
           <ul>
