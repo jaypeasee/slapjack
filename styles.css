@@ -4,15 +4,15 @@ img {
   box-shadow: 8px 8px 6px -6px #26222D;
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Bubblegum Sans', cursive;
-  color: paleturquoise;
-}
+/* h1, h2, h3, h4 {
+} */
 
 .table {
   background-color: #7A372A;
   display: flex;
   flex-direction: column;
+  color: paleturquoise;
+  font-family: 'Bubblegum Sans', cursive;
 }
 
 .turn-update, .game-update {
@@ -29,6 +29,8 @@ h1, h2, h3, h4 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: paleturquoise;
+  font-family: 'Bubblegum Sans', cursive;
 }
 
 .player-one-wins, .player-two-wins {
@@ -36,6 +38,14 @@ h1, h2, h3, h4 {
 }
 
 .control-card {
+  margin-top: 20px;
+  width: 300px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  background-color: #D3D3D3;
+  border-radius: 5px;
+  box-shadow: 8px 8px 6px -6px #26222D;
+  color: #2B2733;
+  font-family: 'Shadows Into Light', cursive;
 }
