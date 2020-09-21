@@ -77,7 +77,7 @@ function handleSurvivalSlap(event, topCard) {
   if ((topCard === 11 && currentGame.player1.hand.length === 0 && event.key === 'f') || (topCard === 11 && currentGame.player2.hand.length === 0 && event.key === 'j')) {
     handleCorrectSlap(event, topCard);
     resetPlayerDecks();
-  } else if ((topCard === 11 && currentGame.player2.hand.length === 0 && event.key === 'f') || (topCard === 11 && currentGame.player1.hand.length === 0 && event.key === 'j') || (currentGame.player1.hand.length === 0 && event.key === "f") || (currentGame.player2.hand.length === 0 && event.key === 'j')) {
+  } else if ((topCard === 11 && currentGame.player2.hand.length === 0 && event.key === 'f') || (topCard === 11 && currentGame.player1.hand.length === 0 && event.key === 'j') || (currentGame.player1.hand.length === 0 && event.key === 'f') || (currentGame.player2.hand.length === 0 && event.key === 'j')) {
     currentGame.gameOverSlap();
     displayGameOver();
   } else if ((currentGame.player1.hand.length === 0 && event.key === 'j') || (currentGame.player2.hand.length === 0 && event.key === 'f')) {
@@ -92,7 +92,7 @@ function handleCorrectSlap(event, topCard) {
   if (topCard === 11) {
     result = 'SLAPJACK!';
  } else if (topCard === currentGame.kitty[1].number) {
-   result = 'DOUBLE!'';
+   result = 'DOUBLE!';
  } else if (topCard === currentGame.kitty[2].number) {
    result = 'SANDWICH!';
  }
@@ -136,9 +136,9 @@ function displayTurnStatus() {
 function displayDealerStatus() {
   gameUpdate.innerText = '';
   if (currentGame.player1.turn) {
-    turnUpdate.innerText = "Player One Starts!";
+    turnUpdate.innerText = 'Player One Starts!';
   } else {
-    turnUpdate.innerText = "Player Two Starts!";
+    turnUpdate.innerText = 'Player Two Starts!';
   }
 }
 
@@ -156,28 +156,28 @@ function displayCorrectSlap(event, result) {
 function displayIncorrectSlap(event) {
   displaygameBoard();
   if (event.key === 'f') {
-    gameUpdate.innerText = "BAD SLAP! Player 1 forfeits a card to Player 2!";
+    gameUpdate.innerText = 'BAD SLAP! Player 1 forfeits a card to Player 2!';
   } else if (event.key === 'j') {
-    gameUpdate.innerText = "BAD SLAP! Player 2 forfeits a card to Player 1!";
+    gameUpdate.innerText = 'BAD SLAP! Player 2 forfeits a card to Player 1!';
   }
 }
 
 function displaySurvivalRedeal() {
   resetGameBoard();
   if (currentGame.player1.turn) {
-    gameUpdate.innerText = "REDEAL! Player One Takes the Pile!";
+    gameUpdate.innerText = 'REDEAL! Player One Takes the Pile!';
   } else if (currentGame.player2.turn) {
-    gameUpdate.innerText = "REDEAL! Player Two Takes the Pile!";
+    gameUpdate.innerText = 'REDEAL! Player Two Takes the Pile!';
   }
 }
 
 function displayGameOver() {
   resetPlayerDecks();
   if (currentGame.player1.hand.length === 0) {
-    gameUpdate.innerText = "Player Two Wins!";
+    gameUpdate.innerText = 'Player Two Wins!';
     playerOneDeck.children[0].classList.add('hidden');
   } else if (currentGame.player2.hand.length === 0) {
-    gameUpdate.innerText = "Player One Wins!";
+    gameUpdate.innerText = 'Player One Wins!';
     playerTwoDeck.children[0].classList.add('hidden');
   }
   pauseGame();
