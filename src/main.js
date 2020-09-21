@@ -11,9 +11,9 @@ var currentGame;
 
 function startNewGame() {
   if (!currentGame) {
-    retrieveLocalStorage()
     currentGame = new Game();
   }
+  retrieveLocalStorage()
   currentGame.determineDealer();
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealDeck();
@@ -24,7 +24,7 @@ function retrieveLocalStorage() {
   var storedPlayer2Wins = localStorage.getItem("player2Wins");
   var parsedPlayer1Wins = JSON.parse(storedPlayer1Wins);
   var parsedPlayer2Wins = JSON.parse(storedPlayer2Wins);
-  console.log(parsedPlayer1Wins);
+  resetPlayerDecks();
 }
 
 function handlePlayerActions(event) {

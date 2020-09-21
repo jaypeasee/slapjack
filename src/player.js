@@ -3,7 +3,7 @@ class Player {
     this.turn = false;
     this.hand = [];
     this.id = id;
-    this.wins = 0;
+    this.wins = JSON.parse(localStorage.getItem(`${this.id}Wins`)) || 0;
   }
 
   saveWinsToStorage() {
