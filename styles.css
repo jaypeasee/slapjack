@@ -1,5 +1,7 @@
 img {
   max-width: 206px;
+  border-radius: 20px;
+  box-shadow: 8px 8px 6px -6px #26222D;
 }
 
 h1, h2 {
