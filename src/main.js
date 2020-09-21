@@ -13,13 +13,21 @@ function startNewGame() {
   if (!currentGame) {
     currentGame = new Game();
   }
+  retrieveLocalStorage()
   currentGame.determineDealer();
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealDeck();
 }
 
-function handlePlayerActions(event) {
+function retrieveLocalStorage() {
+  var storedPlayer1Wins = localStorage.getItem("player1Wins");
+  var storedPlayer2Wins = localStorage.getItem("player2Wins");
+  var parsedPlayer1Wins = JSON.parse(storedPlayer1Wins);
+  var parsedPlayer2Wins = JSON.parse(storedPlayer2Wins);
+  resetPlayerDecks();
+}
 
+function handlePlayerActions(event) {
   if (event.key === "q" || event.key === "p") {
     turnHandler(event);
  } else if (event.key === "f" || event.key === "j") {
@@ -42,7 +50,6 @@ function turnHandler(event) {
   if (currentGame.kitty.length > 0) {
     displaygameBoard();
   }
-
 }
 
 function slapHandler(event, topCard) {
@@ -71,18 +78,6 @@ function handleSurvivalSlap(event, topCard) {
     displayIncorrectSlap(event);
     resetPlayerDecks();
   }
-}
-
-function displayGameOver() {
-  resetPlayerDecks();
-  if (currentGame.player1.hand.length === 0) {
-    gameUpdate.innerText = "Player Two Wins!";
-    playerOneDeck.innerHTML = "";
-  } else if (currentGame.player2.hand.length === 0) {
-    gameUpdate.innerText = "Player One Wins!";
-    playerTwoDeck.innerHTML = "";
-  }
-  pauseGame();
 }
 
 function displayDealerStatus() {
@@ -186,6 +181,18 @@ function displaySurvivalRedeal() {
   }
 }
 
+function displayGameOver() {
+  resetPlayerDecks();
+  if (currentGame.player1.hand.length === 0) {
+    gameUpdate.innerText = "Player Two Wins!";
+    playerOneDeck.innerHTML = "";
+  } else if (currentGame.player2.hand.length === 0) {
+    gameUpdate.innerText = "Player One Wins!";
+    playerTwoDeck.innerHTML = "";
+  }
+  pauseGame();
+}
+
 function pauseGame() {
   var timeout = setInterval(stopPause, 1000);
   var counter = 0;
@@ -204,5 +211,5 @@ function resetGame() {
   startNewGame();
   resetPlayerDecks();
   wipeStatusDisplays();
-  displayDealerStatus()
+  displayDealerStatus();
 }

@@ -1,9 +1,9 @@
 class Game {
-  constructor(gameCount) {
+  constructor() {
     this.kitty = [];
     this.gameCount = 0;
-    this.player1 = new Player();
-    this.player2 = new Player();
+    this.player1 = new Player("player1");
+    this.player2 = new Player("player2");
     this.cardDeck = [
       { src: "./assets/blue-01.png", number: 1, color: "blue" },
       { src: "./assets/blue-02.png", number: 2, color: "blue" },
@@ -149,8 +149,10 @@ class Game {
   gameOverSlap() {
     if (this.player1.hand.length === 0) {
       this.player2.wins++;
+      this.player2.saveWinsToStorage();
     } else if (this.player2.hand.length === 0) {
       this.player1.wins++;
+      this.player1.saveWinsToStorage();
     }
     this.gameCount++;
   }
