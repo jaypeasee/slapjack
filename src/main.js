@@ -103,7 +103,7 @@ function handleCorrectSlap(event, topCard) {
 
 function displaygameBoard() {
     resetGameBoard();
-    var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
+    var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card" class="current-card">`;
     gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
     displayTurnStatus();
   if (currentGame.player1.hand.length < 1 || currentGame.player2.hand.length < 1) {

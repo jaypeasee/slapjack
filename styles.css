@@ -12,6 +12,11 @@ img {
   font-family: 'Bubblegum Sans', cursive;
 }
 
+.title {
+  align-self: center;
+  font-size: 3em;
+}
+
 .turn-update, .game-update {
   align-self: center;
 }
