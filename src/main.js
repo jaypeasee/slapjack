@@ -11,7 +11,7 @@ var currentGame;
 
 function startNewGame() {
   if (!currentGame) {
-    // retrieveLocalStorage()
+    retrieveLocalStorage()
     currentGame = new Game();
   }
   currentGame.determineDealer();
@@ -19,14 +19,13 @@ function startNewGame() {
   currentGame.dealDeck();
 }
 
-// function retrieveLocalStorage() {
-//   var storedPlayer1Wins = localStorage.getItem("player1Wins");
-//   var storedPlayer2Wins = localStorage.getItem("player2Wins");
-//   // var parsedPlayer1Wins = JSON.parse(storedPlayer1Wins);
-//   var parsedPlayer2Wins = JSON.parse(storedPlayer2Wins);
-//   console.log(parsedPlayer1Wins);
-// }
-
+function retrieveLocalStorage() {
+  var storedPlayer1Wins = localStorage.getItem("player1Wins");
+  var storedPlayer2Wins = localStorage.getItem("player2Wins");
+  var parsedPlayer1Wins = JSON.parse(storedPlayer1Wins);
+  var parsedPlayer2Wins = JSON.parse(storedPlayer2Wins);
+  console.log(parsedPlayer1Wins);
+}
 
 function handlePlayerActions(event) {
   if (event.key === "q" || event.key === "p") {
