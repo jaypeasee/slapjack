@@ -1,5 +1,5 @@
 img {
-  width: 50%;
+  max-width: 206px;
 }
 
 h1, h2 {
@@ -18,7 +18,7 @@ h1, h2 {
 
 .gameboard {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .player-one-deck, .kitty-deck, .player-two-deck {
