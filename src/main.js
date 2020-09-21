@@ -125,7 +125,7 @@ function displaygameBoard() {
 
 function displaySurvivalRound() {
   if (currentGame.player1.hand.length === 0) {
-    playerOneDeck.children[0].classList.add('hidden'); //refactor
+    playerOneDeck.children[0].classList.add('hidden');
   } else if (currentGame.player2.hand.length === 0) {
     playerTwoDeck.children[0].classList.add('hidden');
   }
@@ -161,10 +161,11 @@ function displayIncorrectSlap(event) {
 }
 
 function resetPlayerDecks() {
-  var playerPile = `<img src="./assets/back.png" alt="Player Deck" class="card-pile">`
-  playerOneDeck.children[0] = playerPile;
+  console.log(playerOneDeck.children[2].innertext);
+  console.log(playerTwoDeck.children[2].innerText)
+  playerOneDeck.children[0].classList.remove('hidden');
   playerOneDeck.children[2].innertext = `${currentGame.player1.wins} Wins`;
-  playerTwoDeck.children[0] = playerPile;
+  playerTwoDeck.children[0].classList.remove('hidden');
   playerTwoDeck.children[2].innerText = `${currentGame.player2.wins} Wins`;
 }
 
@@ -178,13 +179,10 @@ function displaySurvivalRedeal() {
 }
 
 function displayGameOver() {
-  resetPlayerDecks();
   if (currentGame.player1.hand.length === 0) {
     gameUpdate.innerText = "Player Two Wins!";
-    playerOneDeck = "";
   } else if (currentGame.player2.hand.length === 0) {
     gameUpdate.innerText = "Player One Wins!";
-    playerTwoDeck = "";
   }
   pauseGame();
 }
