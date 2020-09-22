@@ -1,11 +1,11 @@
-var turnUpdate = document.querySelector(".turn-update");
-var gameUpdate = document.querySelector(".game-update");
-var gameBoard = document.querySelector(".kitty-deck");
-var playerOneDeck = document.querySelector(".player-one-deck");
-var playerTwoDeck = document.querySelector(".player-two-deck");
+var turnUpdate = document.querySelector('.turn-update');
+var gameUpdate = document.querySelector('.game-update');
+var gameBoard = document.querySelector('.kitty-deck');
+var playerOneDeck = document.querySelector('.player-one-deck');
+var playerTwoDeck = document.querySelector('.player-two-deck');
 
-window.addEventListener("load", startNewGame);
-window.addEventListener("keydown", handlePlayerActions);
+window.addEventListener('load', startNewGame);
+window.addEventListener('keydown', handlePlayerActions);
 
 var currentGame;
 
@@ -13,46 +13,53 @@ function startNewGame() {
   if (!currentGame) {
     currentGame = new Game();
   }
-  retrieveLocalStorage()
+  retrieveLocalStorage();
   currentGame.determineDealer();
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealDeck();
 }
 
 function retrieveLocalStorage() {
-  var storedPlayer1Wins = localStorage.getItem("player1Wins");
-  var storedPlayer2Wins = localStorage.getItem("player2Wins");
+  var storedPlayer1Wins = localStorage.getItem('player1Wins');
+  var storedPlayer2Wins = localStorage.getItem('player2Wins');
   var parsedPlayer1Wins = JSON.parse(storedPlayer1Wins);
   var parsedPlayer2Wins = JSON.parse(storedPlayer2Wins);
   resetPlayerDecks();
 }
 
+function resetPlayerDecks() {
+  playerOneDeck.children[0].classList.remove('hidden');
+  playerTwoDeck.children[0].classList.remove('hidden');
+  playerOneDeck.children[2].innerText = `${currentGame.player1.wins} Wins`;
+  playerTwoDeck.children[2].innerText = `${currentGame.player2.wins} Wins`;
+}
+
 function handlePlayerActions(event) {
-  if (event.key === "q" || event.key === "p") {
-    turnHandler(event);
- } else if (event.key === "f" || event.key === "j") {
-   slapHandler(event);
+  if (event.key === 'q' || event.key === 'p') {
+    handleTurn(event);
+ } else if (event.key === 'f' || event.key === 'j') {
+   handleSlap(event);
  }
 }
 
-function turnHandler(event) {
+function handleTurn(event) {
   if ((currentGame.player1.hand.length === 1 && currentGame.player2.hand.length === 0) || (currentGame.player1.hand.length === 0 && currentGame.player2.hand.length === 1)) {
     currentGame.redealSurvivalRound(event);
-    displaySurvivalRedeal()
+    displaySurvivalRedeal();
   }
   else if (currentGame.player1.hand.length === 0 || currentGame.player2.hand.length === 0) {
     currentGame.overrideTurn(event);
-    wipeStatusDisplays();
+    resetGameBoard();
   } else {
     currentGame.playHand(event);
-    wipeStatusDisplays();
+    resetGameBoard();
   }
   if (currentGame.kitty.length > 0) {
     displaygameBoard();
   }
 }
 
-function slapHandler(event, topCard) {
+function handleSlap(event) {
   var topCard = currentGame.kitty[0].number;
   if (currentGame.player1.hand.length === 0 || currentGame.player2.hand.length === 0) {
     handleSurvivalSlap(event, topCard);
@@ -67,50 +74,36 @@ function slapHandler(event, topCard) {
 }
 
 function handleSurvivalSlap(event, topCard) {
-  if ((topCard === 11 && currentGame.player1.hand.length === 0 && event.key === "f") || (topCard === 11 && currentGame.player2.hand.length === 0 && event.key === "j")) {
+  if ((topCard === 11 && currentGame.player1.hand.length === 0 && event.key === 'f') || (topCard === 11 && currentGame.player2.hand.length === 0 && event.key === 'j')) {
     handleCorrectSlap(event, topCard);
     resetPlayerDecks();
-  } else if ((topCard === 11 && currentGame.player2.hand.length === 0 && event.key === "f") || (topCard === 11 && currentGame.player1.hand.length === 0 && event.key === "j") || (currentGame.player1.hand.length === 0 && event.key === "f") || (currentGame.player2.hand.length === 0 && event.key === "j")) {
+  } else if ((topCard === 11 && currentGame.player2.hand.length === 0 && event.key === 'f') || (topCard === 11 && currentGame.player1.hand.length === 0 && event.key === 'j') || (currentGame.player1.hand.length === 0 && event.key === 'f') || (currentGame.player2.hand.length === 0 && event.key === 'j')) {
     currentGame.gameOverSlap();
     displayGameOver();
-  } else if ((currentGame.player1.hand.length === 0 && event.key === "j") || (currentGame.player2.hand.length === 0 && event.key === "f")) {
+  } else if ((currentGame.player1.hand.length === 0 && event.key === 'j') || (currentGame.player2.hand.length === 0 && event.key === 'f')) {
     currentGame.slapIncorrectly(event);
     displayIncorrectSlap(event);
     resetPlayerDecks();
   }
 }
 
-function displayDealerStatus() {
-  gameUpdate.innerText = "";
-  if (currentGame.player1.turn) {
-    turnUpdate.innerText = "Player One Starts!";
-  } else {
-    turnUpdate.innerText = "Player Two Starts!";
-  }
-}
-
 function handleCorrectSlap(event, topCard) {
-  var result = "";
+  var result = '';
   if (topCard === 11) {
-    result = "SLAPJACK!"
+    result = 'SLAPJACK!';
  } else if (topCard === currentGame.kitty[1].number) {
-   result = "DOUBLE!";
+   result = 'DOUBLE!';
  } else if (topCard === currentGame.kitty[2].number) {
-   result = "SANDWICH!";
+   result = 'SANDWICH!';
  }
   currentGame.slapCorrectly(event);
   displayTurnStatus();
   displayCorrectSlap(event, result);
 }
 
-function wipeStatusDisplays() {
-  gameUpdate.innerText = "";
-  gameBoard.innerHTML = "";
-}
-
 function displaygameBoard() {
-    wipeStatusDisplays();
-    var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card">`;
+    resetGameBoard();
+    var lastCardPlayed = `<img src=${currentGame.kitty[0].src} alt="Last Played Card" class="current-card">`;
     gameBoard.insertAdjacentHTML('afterbegin', lastCardPlayed);
     displayTurnStatus();
   if (currentGame.player1.hand.length < 1 || currentGame.player2.hand.length < 1) {
@@ -118,16 +111,21 @@ function displaygameBoard() {
   }
 }
 
+function resetGameBoard() {
+  gameUpdate.innerText = '';
+  gameBoard.innerHTML = '';
+}
+
 function displaySurvivalRound() {
   if (currentGame.player1.hand.length === 0) {
-    playerOneDeck.innerHTML = "";
+    playerOneDeck.children[0].classList.add('hidden');
   } else if (currentGame.player2.hand.length === 0) {
-    playerTwoDeck.innerHTML = "";
+    playerTwoDeck.children[0].classList.add('hidden');
   }
 }
 
 function displayTurnStatus() {
-  gameUpdate.innerText = "";
+  gameUpdate.innerText = '';
   if (currentGame.player1.turn) {
     turnUpdate.innerText = "Player One's Turn!";
   } else {
@@ -135,12 +133,21 @@ function displayTurnStatus() {
   }
 }
 
+function displayDealerStatus() {
+  gameUpdate.innerText = '';
+  if (currentGame.player1.turn) {
+    turnUpdate.innerText = 'Player One Starts!';
+  } else {
+    turnUpdate.innerText = 'Player Two Starts!';
+  }
+}
+
 function displayCorrectSlap(event, result) {
-  wipeStatusDisplays();
-  gameUpdate.innerText = "";
-  if (event.key === "f") {
+  resetGameBoard();
+  gameUpdate.innerText = '';
+  if (event.key === 'f') {
     gameUpdate.innerText = `${result} Player 1 takes the pile!`;
-  } else if (event.key === "j") {
+  } else if (event.key === 'j') {
     gameUpdate.innerText = `${result} Player 2 takes the pile!`;
   }
   resetPlayerDecks();
@@ -148,47 +155,30 @@ function displayCorrectSlap(event, result) {
 
 function displayIncorrectSlap(event) {
   displaygameBoard();
-  if (event.key === "f") {
-    gameUpdate.innerText = "BAD SLAP! Player 1 forfeits a card to Player 2!";
-  } else if (event.key === "j") {
-    gameUpdate.innerText = "BAD SLAP! Player 2 forfeits a card to Player 1!";
+  if (event.key === 'f') {
+    gameUpdate.innerText = 'BAD SLAP! Player 1 forfeits a card to Player 2!';
+  } else if (event.key === 'j') {
+    gameUpdate.innerText = 'BAD SLAP! Player 2 forfeits a card to Player 1!';
   }
 }
 
-function resetPlayerDecks() {
-  var player1CardBack =
-  `<div class="player-one-deck">
-    <img src="./assets/back.png" alt="Player One's Deck">
-    <h2 class="player-one-wins">${currentGame.player1.wins} Wins</h2>
-  </div>`;
-  var player2CardBack =
-  `<div class="player-two-deck">
-    <img src="./assets/back.png" alt="Player Two's Deck">
-    <h2 class="player-two-wins">${currentGame.player2.wins} Wins</h2>
-  </div>`;
-  playerOneDeck.innerHTML = "";
-  playerTwoDeck.innerHTML = "";
-  playerOneDeck.insertAdjacentHTML('afterbegin', player1CardBack);
-  playerTwoDeck.insertAdjacentHTML('afterbegin', player2CardBack);
-}
-
 function displaySurvivalRedeal() {
-  wipeStatusDisplays();
+  resetGameBoard();
   if (currentGame.player1.turn) {
-    gameUpdate.innerText = "REDEAL! Player One Takes the Pile!";
+    gameUpdate.innerText = 'REDEAL! Player One Takes the Pile!';
   } else if (currentGame.player2.turn) {
-    gameUpdate.innerText = "REDEAL! Player Two Takes the Pile!";
+    gameUpdate.innerText = 'REDEAL! Player Two Takes the Pile!';
   }
 }
 
 function displayGameOver() {
   resetPlayerDecks();
   if (currentGame.player1.hand.length === 0) {
-    gameUpdate.innerText = "Player Two Wins!";
-    playerOneDeck.innerHTML = "";
+    gameUpdate.innerText = 'Player Two Wins!';
+    playerOneDeck.children[0].classList.add('hidden');
   } else if (currentGame.player2.hand.length === 0) {
-    gameUpdate.innerText = "Player One Wins!";
-    playerTwoDeck.innerHTML = "";
+    gameUpdate.innerText = 'Player One Wins!';
+    playerTwoDeck.children[0].classList.add('hidden');
   }
   pauseGame();
 }
@@ -210,6 +200,6 @@ function resetGame() {
   currentGame.collectCards();
   startNewGame();
   resetPlayerDecks();
-  wipeStatusDisplays();
+  resetGameBoard();
   displayDealerStatus();
 }

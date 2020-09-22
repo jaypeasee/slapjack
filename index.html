@@ -2,21 +2,61 @@
 <html>
   <head>
     <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Shadows+Into+Light&display=swap" rel="stylesheet">
     <title>SlapJack</title>
   </head>
   <body class="table">
+    <h1 class="title">SLAPJACK</h1>
     <h1 class="turn-update">Player One Starts!</h1>
     <h2 class="game-update"></h2>
     <section class="gameboard">
       <div class="player-one-deck">
         <img src="./assets/back.png" alt="Player One's Deck">
+        <h2 class="player-name">Player 1</h2>
         <h2 class="player-one-wins">0 Wins</h2>
+        <div class="control-card">
+          <h3>YOUR CONTROLS:</h3>
+          <h3 class="control-instructions">Press the [ q ] key to deal a card.</h4>
+          <h3 class="control-instructions">Press the [ f ] key to slap!</h4>
+        </div>
       </div>
       <div class="kitty-deck"></div>
       <div class="player-two-deck">
         <img src="./assets/back.png" alt="Player Two's Deck">
+        <h2 class="player-name">Player 2</h2>
         <h2 class="player-two-wins">0 Wins</h2>
+        <div class="control-card">
+          <h3>YOUR CONTROLS:</h3>
+          <h3 class="control-instructions">Press the [ p ] key to deal a card.</h4>
+          <h3 class="control-instructions">Press the [ j ] key to slap!</h4>
+        </div>
       </div>
+    </section>
+    <section class="play-instructions">
+      <h2>HOW TO PLAY SLAPJACK</h2>
+      <h3>The goal in SlapJack is to win all 52 cards in the deck. Here's how it works:</h3>
+      <ul>
+        <li>The game starts when the deck is shuffled and each player is dealt 26 cards</li>
+        <li>The players take turns dealing cards to the central pile</li>
+        <li>Players can "slap" the central pile to claim it and shuffle those cards into their existing hand</li>
+        <li>There are 3 valid slaps in SlapJack:</li>
+          <ol>
+            <li>When a Jack is the top card.</li>
+            <li>On doubles - two cards of the same number in a row.</li>
+            <li>On sandwiches - two matching cards with a random card between them</li>
+          </ol>
+        <li>If a player slaps the central pile for any other reason, they forfeit the top card in their hand to the opposing player. That card is added to the bottom of the other player's hand.</li>
+        <li>When a player runs out of cards the game continues, but with new rules:</li>
+          <ul>
+            <li>The player with cards continues to deal their cards to the middle</li>
+            <li>Jacks are the only valid type of slap for either player</li>
+            <li>If the player without cards slaps anything besides a Jack, the other player wins</li>
+            <li>If the player with cards slaps anything besides a Jack, they forfeit their top card to the player without cards.</li>
+            <li>If the player with cards slaps a Jack first, they win the game</li>
+            <li>If the player without cards slaps a Jack first, they pick up the central pile and the games original rules now apply again</li>
+            <li>If no one slaps a Jack before the player with cards deals all of theirs to the central pile, that player picks up the central pile, shuffles it, and then continues to deal the cards to the middle.</li>
+          </ul>
+      </ul>
     </section>
   </body>
   <script type="text/javascript" src="./src/player.js"></script>
