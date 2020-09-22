@@ -35,6 +35,9 @@ Build my first <b>complete</b> game application based on a project brief and com
   2. After a player successfully slaps and adds the pile to their existing hand.
   3. After the player with cards has dealt all of theirs to the middle and before the cards are handed back to that player.
 - When a player runs out of cards they have a chance to get back into the game by slapping a Jack as the other player continues to deal their cards. It is in this round where they can also be eliminated.
+
+![gif of a survival round](https://media.giphy.com/media/Pe9TTzOYOo40Upm8IW/giphy.gif)
+
 - When a player has won, the win score is updated to the `Data Model` and `localStorage`
 - The `DOM` displays all of the data representing this game as events happen, to allow the users an experience of a real card game.
 
