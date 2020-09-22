@@ -26,7 +26,7 @@ Build my first <b>complete</b> game application based on a project brief and com
    	1. If the other player does not have any cards left.
    	2. If the other player just slapped the middle pile.
    	3. Or if it was not their turn previously.
-![gif of a normal round](https://media.giphy.com/media/xpdEnetLg8xyj0iQjd/source.mp4)
+![gif of a normal round](https://media.giphy.com/media/xpdEnetLg8xyj0iQjd/giphy.gif)
 - The cards are shuffled in three instances:
   1. At the start of a new game - before the cards have been dealt to either player.
   2. After a player successfully slaps and adds the pile to their existing hand.
